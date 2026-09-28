@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoV Team Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#293040;
+  --text:#e6edf3; --muted:#8b949e;
+  --accent:#ff7a45; --good:#3fb950; --bad:#f85149; --warn:#d29922; --info:#58a6ff;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:"IBM Plex Sans Thai",system-ui,-apple-system,sans-serif;
+  line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+a{color:var(--info)}
+.muted{color:var(--muted)}
+.small{font-size:.82rem}
+.num{font-family:"JetBrains Mono","IBM Plex Sans Thai",ui-monospace,monospace}
+
+/* header */
+.topbar{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#151b26,#0d1117);padding:22px 0 18px}
+.topbar .wrap{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:14px;align-items:center}
+.brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);flex:0 0 auto}
+.topbar h1{margin:0;font-size:1.5rem;letter-spacing:-.01em}
+.topbar p{margin:2px 0 0;font-size:.85rem}
+.headline{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.82rem}
+.pill b{color:var(--accent)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:14px 20px 0;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{
+  background:transparent;border:1px solid transparent;color:var(--muted);
+  font:inherit;font-size:.9rem;padding:8px 15px;border-radius:9px;cursor:pointer;white-space:nowrap;
+}
+.tabs button:hover{color:var(--text);background:#ffffff08}
+.tabs button.active{background:var(--panel);border-color:var(--line);color:var(--text);font-weight:600}
+
+/* layout */
+main{padding:22px 20px 40px}
+.loading{color:var(--muted);padding:40px 0;text-align:center}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));margin-bottom:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.card.wide{grid-column:1/-1}
+.card h2{margin:0 0 4px;font-size:1.02rem;display:flex;align-items:center;gap:8px}
+.card .hint{margin:0 0 14px;font-size:.8rem;color:var(--muted)}
+.verdict{border-left:3px solid var(--accent);padding:10px 14px;background:#ffffff06;border-radius:0 8px 8px 0;font-size:.88rem;margin-top:14px}
+.verdict b{color:var(--accent)}
+
+/* big stat */
+.stat{display:flex;align-items:baseline;gap:10px;margin:6px 0 2px}
+.stat .v{font-size:2.3rem;font-weight:700;line-height:1;font-family:"JetBrains Mono","IBM Plex Sans Thai",monospace}
+.stat .u{color:var(--muted);font-size:.85rem}
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi .l{font-size:.74rem;color:var(--muted);display:block;margin-bottom:4px}
+.kpi .n{font-size:1.4rem;font-weight:700;font-family:"JetBrains Mono","IBM Plex Sans Thai",monospace}
+.kpi .c{font-size:.72rem;color:var(--muted)}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th,td{padding:7px 9px;text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:500;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em}
+tbody tr:last-child td{border-bottom:none}
+tbody tr.me{background:#ff7a4514}
+tbody tr.me td{font-weight:600}
+td.r,th.r{text-align:right;font-family:"JetBrains Mono","IBM Plex Sans Thai",monospace}
+.zone{display:inline-block;width:3px;height:16px;border-radius:2px;vertical-align:-3px;margin-right:8px}
+.zone.up{background:var(--good)}.zone.mid{background:var(--warn)}.zone.out{background:#39414f}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+.bar{display:grid;grid-template-columns:118px 1fr 74px;gap:10px;align-items:center;font-size:.83rem}
+.bar .track{display:block;background:#ffffff0d;border-radius:5px;height:18px;position:relative;overflow:hidden}
+.bar .fill{display:block;height:100%;min-width:2px;border-radius:5px;background:var(--accent);transition:width .5s ease}
+.bar .fill.good{background:var(--good)}.bar .fill.bad{background:var(--bad)}.bar .fill.info{background:var(--info)}
+.bar .ref{position:absolute;top:0;bottom:0;width:2px;background:#ffffff66}
+.bar .val{text-align:right;font-family:"JetBrains Mono","IBM Plex Sans Thai",monospace;font-size:.82rem}
+.bar .lbl{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.legend{font-size:.74rem;color:var(--muted);margin-top:10px}
+
+/* flow */
+.flowlist{display:flex;flex-direction:column;gap:7px}
+.flowrow{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;font-size:.84rem}
+.flow{display:flex;gap:3px}
+.g{width:19px;height:19px;border-radius:5px;display:grid;place-items:center;font-size:.68rem;font-weight:700;font-family:"JetBrains Mono","IBM Plex Sans Thai",monospace}
+.g.w{background:#3fb95030;color:var(--good)}
+.g.l{background:#f8514930;color:var(--bad)}
+.tag{font-size:.7rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.w{color:var(--good);border-color:#3fb95055}
+.tag.l{color:var(--bad);border-color:#f8514955}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:.8rem}
+.chip b{font-family:"JetBrains Mono","IBM Plex Sans Thai",monospace}
+.chip.good{border-color:#3fb95055}.chip.bad{border-color:#f8514955}
+
+.pos{color:var(--good)}.neg{color:var(--bad)}
+.sect-title{margin:26px 0 10px;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+footer{padding:22px 20px 40px;border-top:1px solid var(--line);margin-top:20px}
+@media(max-width:560px){
+  .stat .v{font-size:1.9rem}
+  .bar{grid-template-columns:92px 1fr 64px;font-size:.78rem}
+  .topbar h1{font-size:1.25rem}
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot"></span>
+      <div>
+        <h1 id="teamName">กำลังโหลด…</h1>
+        <p id="subtitle" class="muted"></p>
+      </div>
+    </div>
+    <div class="headline" id="headline"></div>
+  </div>
+</header>
+
+<nav class="tabs wrap" id="tabs">
+  <button data-tab="overview" class="active">ภาพรวม</button>
+  <button data-tab="diagnosis">วินิจฉัยปัญหา</button>
+  <button data-tab="draft">ดราฟท์ &amp; ฮีโร่</button>
+  <button data-tab="tempo">จังหวะเกม</button>
+  <button data-tab="meta">เมต้าเปลี่ยน</button>
+  <button data-tab="prep">คู่ต่อไป</button>
+</nav>
+
+<main class="wrap" id="app">
+  <p class="loading">กำลังโหลดข้อมูล…</p>
+</main>
+
+<footer class="wrap">
+  <p class="muted small">
+    ข้อมูลผลการแข่งขันจาก <a id="srcLink" href="https://liquipedia.net/honorofkings/" target="_blank" rel="noopener">Liquipedia</a>
+    เผยแพร่ภายใต้สัญญาอนุญาต CC-BY-SA — สถิติและตัวเลขความน่าจะเป็นทั้งหมดในหน้านี้คำนวณขึ้นเองจากข้อมูลรายเกม
+    <strong>ไม่ใช่สถิติทางการ</strong> กลุ่มตัวอย่างบางส่วนมีขนาดเล็ก ให้ใช้ดูแนวโน้มเท่านั้น
+  </p>
+  <p class="muted small" id="updatedAt"></p>
+</footer>
+
+<script>window.__STATS__ = {"meta": {"team": "Bacon Time", "tournament": "Winter 2026", "source": "Liquipedia (CC-BY-SA)", "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage", "updated_at": "2026-09-28T11:49:33+00:00", "played": 51, "total": 72, "playoff_slots": 4}, "standings": [{"team": "FULL SENSE", "w": 9, "l": 2, "gw": 27, "gl": 15, "diff": 12, "points": 9, "remaining": 5, "rank": 1, "max_points": 14}, {"team": "Buriram United", "w": 9, "l": 3, "gw": 28, "gl": 19, "diff": 9, "points": 9, "remaining": 4, "rank": 2, "max_points": 13}, {"team": "KOG", "w": 8, "l": 4, "gw": 28, "gl": 20, "diff": 8, "points": 8, "remaining": 4, "rank": 3, "max_points": 12}, {"team": "Tenacity", "w": 7, "l": 4, "gw": 27, "gl": 16, "diff": 11, "points": 7, "remaining": 5, "rank": 4, "max_points": 12}, {"team": "eArena", "w": 7, "l": 4, "gw": 26, "gl": 17, "diff": 9, "points": 7, "remaining": 5, "rank": 5, "max_points": 12}, {"team": "SOLYX", "w": 4, "l": 7, "gw": 22, "gl": 25, "diff": -3, "points": 4, "remaining": 5, "rank": 6, "max_points": 9}, {"team": "Bacon Time", "w": 4, "l": 7, "gw": 20, "gl": 26, "diff": -6, "points": 4, "remaining": 5, "rank": 7, "max_points": 9}, {"team": "Godji Check", "w": 3, "l": 9, "gw": 15, "gl": 33, "diff": -18, "points": 3, "remaining": 4, "rank": 8, "max_points": 7}, {"team": "Hydra", "w": 0, "l": 11, "gw": 11, "gl": 33, "diff": -22, "points": 0, "remaining": 5, "rank": 9, "max_points": 5}], "ratings": {"FULL SENSE": 0.662, "Buriram United": 0.352, "KOG": 0.29, "Tenacity": 0.578, "eArena": 0.25, "SOLYX": -0.116, "Bacon Time": -0.112, "Godji Check": -0.833, "Hydra": -1.072}, "diagnostics": {"series": [{"opponent": "eArena", "date": "August 23, 2026", "flow": "LWLL", "score": "1-3", "won": false}, {"opponent": "Godji Check", "date": "August 27, 2026", "flow": "LWWW", "score": "3-1", "won": true}, {"opponent": "SOLYX", "date": "August 29, 2026", "flow": "WLWLW", "score": "3-2", "won": true}, {"opponent": "Tenacity", "date": "August 30, 2026", "flow": "LLL", "score": "0-3", "won": false}, {"opponent": "Hydra", "date": "September 3, 2026", "flow": "WWW", "score": "3-0", "won": true}, {"opponent": "Buriram United", "date": "September 6, 2026", "flow": "LLL", "score": "0-3", "won": false}, {"opponent": "FULL SENSE", "date": "September 11, 2026", "flow": "WWLLL", "score": "2-3", "won": false}, {"opponent": "KOG", "date": "September 13, 2026", "flow": "LWLWW", "score": "3-2", "won": true}, {"opponent": "Tenacity", "date": "September 19, 2026", "flow": "LLWL", "score": "1-3", "won": false}, {"opponent": "Buriram United", "date": "September 27, 2026", "flow": "LWLWL", "score": "2-3", "won": false}, {"opponent": "eArena", "date": "September 28, 2026", "flow": "LLWWL", "score": "2-3", "won": false}], "by_game_no": [{"game": 1, "n": 11, "w": 3, "wr": 27, "league_wr": 50}, {"game": 2, "n": 11, "w": 6, "wr": 55, "league_wr": 50}, {"game": 3, "n": 11, "w": 5, "wr": 45, "league_wr": 50}, {"game": 4, "n": 8, "w": 4, "wr": 50, "league_wr": 50}, {"game": 5, "n": 5, "w": 2, "wr": 40, "league_wr": 50}], "by_length": [{"label": "ต่ำกว่า 12 นาที", "n": 4, "w": 2, "wr": 50, "league_wr": 50}, {"label": "12–16 นาที", "n": 14, "w": 5, "wr": 36, "league_wr": 50}, {"label": "16–20 นาที", "n": 19, "w": 10, "wr": 53, "league_wr": 50}, {"label": "เกิน 20 นาที", "n": 7, "w": 2, "wr": 29, "league_wr": 50}], "sides": {"blue": {"n": 25, "w": 11, "wr": 44, "league_wr": 55}, "red": {"n": 20, "w": 9, "wr": 45, "league_wr": 45}}, "closeout": {"n": 5, "w": 2, "wr": 40}, "deciders": {"n": 5, "w": 2}, "trailing": {"n": 27, "w": 13, "wr": 48}, "leading": {"n": 8, "w": 4, "wr": 50}, "tiers": {"top": {"mw": 1, "ml": 7, "gw": 11, "gl": 23, "wr": 32}, "bottom": {"mw": 3, "ml": 0, "gw": 9, "gl": 3, "wr": 75}, "top_teams": ["Buriram United", "FULL SENSE", "KOG", "Tenacity", "eArena"]}}, "heroes": {"pool": [{"hero": "airi", "n": 5, "w": 4, "wr": 80, "league_wr": 43, "edge": 37}, {"hero": "valhein", "n": 3, "w": 2, "wr": 67, "league_wr": 53, "edge": 14}, {"hero": "murad", "n": 3, "w": 2, "wr": 67, "league_wr": 47, "edge": 20}, {"hero": "tachi", "n": 8, "w": 5, "wr": 62, "league_wr": 56, "edge": 6}, {"hero": "violet", "n": 10, "w": 6, "wr": 60, "league_wr": 59, "edge": 1}, {"hero": "lorion", "n": 10, "w": 6, "wr": 60, "league_wr": 55, "edge": 5}, {"hero": "sinestrea", "n": 5, "w": 3, "wr": 60, "league_wr": 62, "edge": -2}, {"hero": "wiro", "n": 7, "w": 4, "wr": 57, "league_wr": 36, "edge": 21}, {"hero": "maloch", "n": 7, "w": 4, "wr": 57, "league_wr": 48, "edge": 9}, {"hero": "marja", "n": 10, "w": 5, "wr": 50, "league_wr": 40, "edge": 10}, {"hero": "ryoma", "n": 8, "w": 4, "wr": 50, "league_wr": 58, "edge": -8}, {"hero": "elandorr", "n": 8, "w": 4, "wr": 50, "league_wr": 48, "edge": 2}, {"hero": "astrid", "n": 8, "w": 4, "wr": 50, "league_wr": 60, "edge": -10}, {"hero": "ybneth", "n": 8, "w": 4, "wr": 50, "league_wr": 55, "edge": -5}, {"hero": "annette", "n": 6, "w": 3, "wr": 50, "league_wr": 61, "edge": -11}, {"hero": "rouie", "n": 6, "w": 3, "wr": 50, "league_wr": 54, "edge": -4}, {"hero": "biron", "n": 4, "w": 2, "wr": 50, "league_wr": 58, "edge": -8}, {"hero": "mganga", "n": 4, "w": 2, "wr": 50, "league_wr": 31, "edge": 19}, {"hero": "alice", "n": 4, "w": 2, "wr": 50, "league_wr": 58, "edge": -8}, {"hero": "teemee", "n": 7, "w": 3, "wr": 43, "league_wr": 43, "edge": 0}, {"hero": "billow", "n": 10, "w": 4, "wr": 40, "league_wr": 38, "edge": 2}, {"hero": "capheny", "n": 8, "w": 3, "wr": 38, "league_wr": 49, "edge": -11}, {"hero": "stuart", "n": 6, "w": 2, "wr": 33, "league_wr": 47, "edge": -14}, {"hero": "zata", "n": 3, "w": 1, "wr": 33, "league_wr": 51, "edge": -18}, {"hero": "liliana", "n": 3, "w": 1, "wr": 33, "league_wr": 46, "edge": -13}, {"hero": "yue", "n": 3, "w": 1, "wr": 33, "league_wr": 44, "edge": -11}, {"hero": "mina", "n": 3, "w": 1, "wr": 33, "league_wr": 54, "edge": -21}, {"hero": "wisp", "n": 4, "w": 1, "wr": 25, "league_wr": 56, "edge": -31}, {"hero": "zephys", "n": 4, "w": 1, "wr": 25, "league_wr": 22, "edge": 3}, {"hero": "thane", "n": 5, "w": 1, "wr": 20, "league_wr": 51, "edge": -31}, {"hero": "riktor", "n": 5, "w": 1, "wr": 20, "league_wr": 41, "edge": -21}, {"hero": "flowborn", "n": 5, "w": 1, "wr": 20, "league_wr": 38, "edge": -18}, {"hero": "cresht", "n": 5, "w": 0, "wr": 0, "league_wr": 50, "edge": -50}, {"hero": "taara", "n": 3, "w": 0, "wr": 0, "league_wr": 53, "edge": -53}, {"hero": "ignis", "n": 3, "w": 0, "wr": 0, "league_wr": 26, "edge": -26}, {"hero": "skud", "n": 3, "w": 0, "wr": 0, "league_wr": 52, "edge": -52}], "targeted": [{"hero": "tamyn", "n": 21, "of": 46, "rate": 46, "league_rate": 32, "gap": 13}, {"hero": "annette", "n": 8, "of": 46, "rate": 17, "league_rate": 9, "gap": 9}, {"hero": "skud", "n": 5, "of": 46, "rate": 11, "league_rate": 6, "gap": 5}, {"hero": "elandorr", "n": 8, "of": 46, "rate": 17, "league_rate": 13, "gap": 4}, {"hero": "maloch", "n": 6, "of": 46, "rate": 13, "league_rate": 10, "gap": 3}, {"hero": "alice", "n": 5, "of": 46, "rate": 11, "league_rate": 8, "gap": 3}, {"hero": "omen", "n": 6, "of": 46, "rate": 13, "league_rate": 10, "gap": 3}, {"hero": "yue", "n": 3, "of": 46, "rate": 7, "league_rate": 3, "gap": 3}, {"hero": "enzo", "n": 3, "of": 46, "rate": 7, "league_rate": 4, "gap": 2}, {"hero": "hayate", "n": 3, "of": 46, "rate": 7, "league_rate": 5, "gap": 2}], "punished": [{"hero": "liliana", "n": 5, "w": 5, "wr": 100}, {"hero": "elandorr", "n": 7, "w": 6, "wr": 86}, {"hero": "tamyn", "n": 6, "w": 5, "wr": 83}, {"hero": "alice", "n": 5, "w": 4, "wr": 80}, {"hero": "skud", "n": 8, "w": 6, "wr": 75}, {"hero": "ryoma", "n": 4, "w": 3, "wr": 75}, {"hero": "thane", "n": 4, "w": 3, "wr": 75}, {"hero": "astrid", "n": 7, "w": 5, "wr": 71}, {"hero": "toro", "n": 9, "w": 6, "wr": 67}, {"hero": "iggy", "n": 6, "w": 4, "wr": 67}], "untapped": [{"hero": "chaugnar", "league_n": 12, "league_wr": 83, "presence": 12, "team_n": 1}, {"hero": "iggy", "league_n": 42, "league_wr": 67, "presence": 29, "team_n": 1}, {"hero": "annette", "league_n": 49, "league_wr": 61, "presence": 41, "team_n": 6}, {"hero": "zuka", "league_n": 15, "league_wr": 60, "presence": 7, "team_n": 1}, {"hero": "qi", "league_n": 27, "league_wr": 59, "presence": 16, "team_n": 2}, {"hero": "violet", "league_n": 51, "league_wr": 59, "presence": 27, "team_n": 10}, {"hero": "biron", "league_n": 45, "league_wr": 58, "presence": 22, "team_n": 4}, {"hero": "alice", "league_n": 33, "league_wr": 58, "presence": 31, "team_n": 4}, {"hero": "ryoma", "league_n": 45, "league_wr": 58, "presence": 33, "team_n": 8}, {"hero": "wisp", "league_n": 45, "league_wr": 56, "presence": 25, "team_n": 4}, {"hero": "tachi", "league_n": 52, "league_wr": 56, "presence": 35, "team_n": 8}, {"hero": "elsu", "league_n": 11, "league_wr": 55, "presence": 10, "team_n": 1}], "team_bans": [{"hero": "rouie", "n": 16}, {"hero": "sinestrea", "n": 16}, {"hero": "astrid", "n": 13}, {"hero": "marja", "n": 12}, {"hero": "dolia", "n": 12}, {"hero": "ybneth", "n": 9}, {"hero": "zata", "n": 7}, {"hero": "florentino", "n": 7}, {"hero": "valhein", "n": 6}, {"hero": "omen", "n": 5}], "tempo_index": {"skud": 15.2, "edras": 17.4, "rouie": 17.9, "capheny": 16.0, "toro": 16.7, "biron": 16.3, "billow": 16.6, "lorion": 16.9, "elandorr": 16.4, "enzo": 16.1, "florentino": 15.1, "butterfly": 14.2, "ignis": 15.5, "flowborn": 17.2, "airi": 15.4, "tachi": 17.1, "alice": 15.1, "violet": 16.2, "wiro": 17.0, "ryoma": 16.6, "astrid": 16.8, "liliana": 16.3, "teemee": 17.1, "riktor": 17.4, "sinestrea": 15.9, "zata": 16.1, "dolia": 15.9, "marja": 16.0, "yue": 15.4, "valhein": 14.2, "krizzix": 16.4, "murad": 15.0, "tamyn": 15.7, "annette": 16.3, "stuart": 16.8, "maloch": 16.4, "ybneth": 16.2, "hayate": 15.4, "zephys": 17.1, "wisp": 16.7, "mina": 17.1, "cresht": 14.9, "qi": 15.1, "keera": 14.2, "elsu": 20.1, "thane": 16.9, "yena": 18.2, "taara": 17.6, "chaugnar": 13.6, "iggy": 16.2, "nakroth": 14.9, "mganga": 14.0, "zuka": 14.7, "baldum": 15.0}, "fast_heroes": [{"hero": "rouie", "short_wr": 85, "short_n": 13, "long_wr": 38, "long_n": 24, "swing": 47}, {"hero": "flowborn", "short_wr": 58, "short_n": 19, "long_wr": 23, "long_n": 30, "swing": 35}, {"hero": "enzo", "short_wr": 62, "short_n": 8, "long_wr": 30, "long_n": 10, "swing": 32}, {"hero": "tamyn", "short_wr": 75, "short_n": 20, "long_wr": 43, "long_n": 21, "swing": 32}, {"hero": "teemee", "short_wr": 59, "short_n": 17, "long_wr": 28, "long_n": 18, "swing": 31}, {"hero": "wiro", "short_wr": 46, "short_n": 13, "long_wr": 30, "long_n": 20, "swing": 16}, {"hero": "astrid", "short_wr": 67, "short_n": 30, "long_wr": 53, "long_n": 32, "swing": 14}, {"hero": "annette", "short_wr": 68, "short_n": 22, "long_wr": 54, "long_n": 26, "swing": 14}], "slow_heroes": [{"hero": "mganga", "short_wr": 18, "short_n": 11, "long_wr": 60, "long_n": 5, "swing": -42}, {"hero": "murad", "short_wr": 30, "short_n": 10, "long_wr": 67, "long_n": 9, "swing": -37}, {"hero": "ybneth", "short_wr": 42, "short_n": 31, "long_wr": 69, "long_n": 32, "swing": -27}, {"hero": "thane", "short_wr": 36, "short_n": 14, "long_wr": 61, "long_n": 23, "swing": -25}, {"hero": "dolia", "short_wr": 44, "short_n": 25, "long_wr": 68, "long_n": 25, "swing": -24}, {"hero": "wisp", "short_wr": 42, "short_n": 19, "long_wr": 65, "long_n": 26, "swing": -23}, {"hero": "lorion", "short_wr": 43, "short_n": 21, "long_wr": 62, "long_n": 32, "swing": -19}, {"hero": "yue", "short_wr": 35, "short_n": 17, "long_wr": 53, "long_n": 15, "swing": -18}], "total_games": 204, "team_games": 46}, "tempo": {"team": {"faster": {"n": 7, "w": 4, "wr": 57}, "even": {"n": 21, "w": 10, "wr": 48}, "slower": {"n": 17, "w": 6, "wr": 35}}, "league": {"faster": {"n": 124, "w": 69, "wr": 56}, "even": {"n": 158, "w": 79, "wr": 50}, "slower": {"n": 124, "w": 55, "wr": 44}}, "slow_comp_by_team": [{"team": "eArena", "n": 14, "w": 9, "wr": 64}, {"team": "Buriram United", "n": 14, "w": 8, "wr": 57}, {"team": "FULL SENSE", "n": 12, "w": 6, "wr": 50}, {"team": "SOLYX", "n": 20, "w": 9, "wr": 45}, {"team": "Tenacity", "n": 9, "w": 4, "wr": 44}, {"team": "KOG", "n": 10, "w": 4, "wr": 40}, {"team": "Godji Check", "n": 11, "w": 4, "wr": 36}, {"team": "Bacon Time", "n": 17, "w": 6, "wr": 35}, {"team": "Hydra", "n": 17, "w": 5, "wr": 29}], "games": [{"opponent": "eArena", "ours": 16.3, "theirs": 16.5, "kind": "even", "minutes": 17.2, "won": false}, {"opponent": "eArena", "ours": 16.9, "theirs": 16.2, "kind": "slower", "minutes": 19.5, "won": true}, {"opponent": "eArena", "ours": 15.6, "theirs": 15.8, "kind": "even", "minutes": 13.3, "won": false}, {"opponent": "eArena", "ours": 16.2, "theirs": 16.9, "kind": "faster", "minutes": 18.4, "won": false}, {"opponent": "Godji Check", "ours": 16.3, "theirs": 16.6, "kind": "even", "minutes": 16.7, "won": false}, {"opponent": "Godji Check", "ours": 16.2, "theirs": 15.8, "kind": "slower", "minutes": 20.0, "won": true}, {"opponent": "Godji Check", "ours": 16.4, "theirs": 16.3, "kind": "even", "minutes": 26.2, "won": true}, {"opponent": "Godji Check", "ours": 16.7, "theirs": 16.6, "kind": "even", "minutes": 13.3, "won": true}, {"opponent": "SOLYX", "ours": 16.7, "theirs": 16.2, "kind": "slower", "minutes": 17.1, "won": true}, {"opponent": "SOLYX", "ours": 16.9, "theirs": 16.3, "kind": "slower", "minutes": 29.1, "won": false}, {"opponent": "SOLYX", "ours": 16.9, "theirs": 16.5, "kind": "slower", "minutes": 19.5, "won": true}, {"opponent": "SOLYX", "ours": 16.1, "theirs": 16.1, "kind": "even", "minutes": 20.4, "won": false}, {"opponent": "SOLYX", "ours": 16.5, "theirs": 16.3, "kind": "even", "minutes": 11.5, "won": true}, {"opponent": "Tenacity", "ours": 16.1, "theirs": 15.7, "kind": "slower", "minutes": 16.1, "won": false}, {"opponent": "Tenacity", "ours": 16.8, "theirs": 16.0, "kind": "slower", "minutes": 16.2, "won": false}, {"opponent": "Tenacity", "ours": 16.3, "theirs": 16.8, "kind": "faster", "minutes": 14.8, "won": false}, {"opponent": "Hydra", "ours": 15.9, "theirs": 15.8, "kind": "even", "minutes": 16.5, "won": true}, {"opponent": "Hydra", "ours": 15.8, "theirs": 15.5, "kind": "even", "minutes": 15.3, "won": true}, {"opponent": "Hydra", "ours": 16.3, "theirs": 17.8, "kind": "faster", "minutes": 19.3, "won": true}, {"opponent": "Buriram United", "ours": 16.1, "theirs": 15.8, "kind": "even", "minutes": 13.4, "won": false}, {"opponent": "Buriram United", "ours": 16.8, "theirs": 15.6, "kind": "slower", "minutes": 21.9, "won": false}, {"opponent": "Buriram United", "ours": 16.5, "theirs": 16.4, "kind": "even", "minutes": 14.3, "won": false}, {"opponent": "FULL SENSE", "ours": 15.9, "theirs": 16.1, "kind": "even", "minutes": 12.8, "won": true}, {"opponent": "FULL SENSE", "ours": 15.8, "theirs": 16.5, "kind": "faster", "minutes": 18.9, "won": true}, {"opponent": "FULL SENSE", "ours": 16.6, "theirs": 16.3, "kind": "slower", "minutes": 21.2, "won": false}, {"opponent": "FULL SENSE", "ours": 16.3, "theirs": 16.0, "kind": "even", "minutes": 26.2, "won": false}, {"opponent": "FULL SENSE", "ours": 16.2, "theirs": 15.4, "kind": "slower", "minutes": 12.4, "won": false}, {"opponent": "KOG", "ours": 16.4, "theirs": 15.9, "kind": "slower", "minutes": 13.8, "won": false}, {"opponent": "KOG", "ours": 16.2, "theirs": 16.7, "kind": "faster", "minutes": 22.3, "won": true}, {"opponent": "KOG", "ours": 15.8, "theirs": 15.6, "kind": "even", "minutes": 12.8, "won": false}, {"opponent": "KOG", "ours": 15.8, "theirs": 15.9, "kind": "even", "minutes": 13.2, "won": true}, {"opponent": "KOG", "ours": 16.7, "theirs": 16.5, "kind": "even", "minutes": 19.0, "won": true}, {"opponent": "Tenacity", "ours": 16.4, "theirs": 16.3, "kind": "even", "minutes": 18.4, "won": false}, {"opponent": "Tenacity", "ours": 16.7, "theirs": 16.2, "kind": "slower", "minutes": 19.5, "won": false}, {"opponent": "Tenacity", "ours": 16.5, "theirs": 17.2, "kind": "faster", "minutes": 16.8, "won": true}, {"opponent": "Tenacity", "ours": 16.2, "theirs": 15.7, "kind": "slower", "minutes": 16.3, "won": false}, {"opponent": "Buriram United", "ours": 16.6, "theirs": 16.9, "kind": "even", "minutes": 19.8, "won": false}, {"opponent": "Buriram United", "ours": 16.7, "theirs": 15.0, "kind": "slower", "minutes": 10.7, "won": true}, {"opponent": "Buriram United", "ours": 16.6, "theirs": 16.3, "kind": "slower", "minutes": 10.4, "won": false}, {"opponent": "Buriram United", "ours": 16.7, "theirs": 16.1, "kind": "slower", "minutes": 13.5, "won": true}, {"opponent": "Buriram United", "ours": 15.7, "theirs": 16.4, "kind": "faster", "minutes": 13.3, "won": false}, {"opponent": "eArena", "ours": 16.6, "theirs": 16.5, "kind": "even", "minutes": 14.2, "won": false}, {"opponent": "eArena", "ours": 16.6, "theirs": 16.0, "kind": "slower", "minutes": 11.3, "won": false}, {"opponent": "eArena", "ours": 16.4, "theirs": 16.5, "kind": "even", "minutes": 17.5, "won": true}, {"opponent": "eArena", "ours": 16.5, "theirs": 16.4, "kind": "even", "minutes": null, "won": true}]}, "meta_shift": {"risers": [{"hero": "tamyn", "prev": 0, "cur": 85, "delta": 85, "team_prev": 0, "team_cur": 2}, {"hero": "astrid", "prev": 0, "cur": 78, "delta": 78, "team_prev": 0, "team_cur": 8}, {"hero": "alice", "prev": 0, "cur": 31, "delta": 31, "team_prev": 0, "team_cur": 4}, {"hero": "flowborn", "prev": 0, "cur": 30, "delta": 30, "team_prev": 0, "team_cur": 5}, {"hero": "annette", "prev": 20, "cur": 41, "delta": 21, "team_prev": 4, "team_cur": 6}, {"hero": "maloch", "prev": 18, "cur": 39, "delta": 21, "team_prev": 2, "team_cur": 7}, {"hero": "dolia", "prev": 53, "cur": 73, "delta": 20, "team_prev": 13, "team_cur": 2}, {"hero": "cresht", "prev": 7, "cur": 25, "delta": 19, "team_prev": 2, "team_cur": 5}, {"hero": "violet", "prev": 9, "cur": 27, "delta": 19, "team_prev": 3, "team_cur": 10}, {"hero": "ybneth", "prev": 44, "cur": 64, "delta": 19, "team_prev": 13, "team_cur": 8}, {"hero": "wiro", "prev": 2, "cur": 20, "delta": 17, "team_prev": 4, "team_cur": 7}, {"hero": "ryoma", "prev": 19, "cur": 33, "delta": 14, "team_prev": 4, "team_cur": 8}], "fallers": [{"hero": "qi", "prev": 49, "cur": 16, "delta": -33, "team_prev": 3, "team_cur": 2}, {"hero": "murad", "prev": 51, "cur": 21, "delta": -30, "team_prev": 6, "team_cur": 3}, {"hero": "toro", "prev": 63, "cur": 33, "delta": -30, "team_prev": 12, "team_cur": 2}, {"hero": "zata", "prev": 70, "cur": 41, "delta": -29, "team_prev": 4, "team_cur": 3}, {"hero": "keera", "prev": 36, "cur": 8, "delta": -28, "team_prev": 8, "team_cur": 0}, {"hero": "hayate", "prev": 57, "cur": 30, "delta": -26, "team_prev": 8, "team_cur": 0}, {"hero": "tachi", "prev": 60, "cur": 35, "delta": -25, "team_prev": 12, "team_cur": 8}, {"hero": "fennik", "prev": 30, "cur": 5, "delta": -25, "team_prev": 3, "team_cur": 0}, {"hero": "sinestrea", "prev": 94, "cur": 69, "delta": -25, "team_prev": 8, "team_cur": 5}, {"hero": "edras", "prev": 47, "cur": 24, "delta": -23, "team_prev": 5, "team_cur": 0}], "adaptation": {"team_n": 72, "team_wr": 46, "league_n": 484, "league_wr": 55}, "lost_tools": [{"hero": "dolia", "prev": 13, "cur": 2}, {"hero": "toro", "prev": 12, "cur": 2}, {"hero": "natalya", "prev": 9, "cur": 0}, {"hero": "hayate", "prev": 8, "cur": 0}, {"hero": "keera", "prev": 8, "cur": 0}, {"hero": "wisp", "prev": 11, "cur": 4}, {"hero": "skud", "prev": 9, "cur": 3}, {"hero": "enzo", "prev": 7, "cur": 1}, {"hero": "volkath", "prev": 6, "cur": 0}, {"hero": "yue", "prev": 9, "cur": 3}], "prev_label": "Summer 2026", "cur_label": "Winter 2026"}, "odds": {"top4": 0.05, "win_out": 2.05, "top4_if_win_out": 2.4, "placement": {"4": 0.1, "5": 2.1, "6": 50.6, "7": 47.0, "8": 0.2}, "finish_above": [{"team": "Hydra", "pct": 100.0}, {"team": "Godji Check", "pct": 99.8}, {"team": "SOLYX", "pct": 52.6}, {"team": "eArena", "pct": 1.5}, {"team": "KOG", "pct": 0.9}, {"team": "FULL SENSE", "pct": 0.0}, {"team": "Buriram United", "pct": 0.0}, {"team": "Tenacity", "pct": 0.0}], "goal_mode": "rank", "goal_label": "จบเหนือ SOLYX", "rival": "SOLYX", "swing": [{"match": "SOLYX vs KOG", "a": "SOLYX", "b": "KOG", "root_for": "KOG", "if_a": 36.8, "if_b": 61.6, "gap": 24.9}, {"match": "SOLYX vs Hydra", "a": "SOLYX", "b": "Hydra", "root_for": "Hydra", "if_a": 50.4, "if_b": 75.2, "gap": 24.9}, {"match": "eArena vs SOLYX", "a": "eArena", "b": "SOLYX", "root_for": "eArena", "if_a": 60.4, "if_b": 36.2, "gap": 24.2}, {"match": "SOLYX vs FULL SENSE", "a": "SOLYX", "b": "FULL SENSE", "root_for": "FULL SENSE", "if_a": 34.3, "if_b": 57.7, "gap": 23.4}, {"match": "Buriram United vs eArena", "a": "Buriram United", "b": "eArena", "root_for": "eArena", "if_a": 50.9, "if_b": 54.4, "gap": 3.6}, {"match": "Hydra vs FULL SENSE", "a": "Hydra", "b": "FULL SENSE", "root_for": "FULL SENSE", "if_a": 52.2, "if_b": 54.9, "gap": 2.8}, {"match": "Tenacity vs Buriram United", "a": "Tenacity", "b": "Buriram United", "root_for": "Buriram United", "if_a": 52.7, "if_b": 54.8, "gap": 2.1}, {"match": "Hydra vs Tenacity", "a": "Hydra", "b": "Tenacity", "root_for": "Tenacity", "if_a": 53.4, "if_b": 55.2, "gap": 1.7}, {"match": "Tenacity vs eArena", "a": "Tenacity", "b": "eArena", "root_for": "Tenacity", "if_a": 55.6, "if_b": 53.9, "gap": 1.6}, {"match": "KOG vs eArena", "a": "KOG", "b": "eArena", "root_for": "eArena", "if_a": 51.1, "if_b": 52.7, "gap": 1.6}], "sims": 6000}, "schedule": [{"date": "September 28, 2026 - 18:00 ICT", "a": "Hydra", "b": "FULL SENSE", "involves_team": false}, {"date": "October 1, 2026 - 16:00 ICT", "a": "Tenacity", "b": "eArena", "involves_team": false}, {"date": "October 1, 2026 - 19:00 ICT", "a": "Godji Check", "b": "FULL SENSE", "involves_team": false}, {"date": "October 2, 2026 - 16:00 ICT", "a": "KOG", "b": "Bacon Time", "involves_team": true}, {"date": "October 2, 2026 - 19:00 ICT", "a": "Buriram United", "b": "eArena", "involves_team": false}, {"date": "October 3, 2026 - 12:00 ICT", "a": "Godji Check", "b": "Tenacity", "involves_team": false}, {"date": "October 3, 2026 - 15:00 ICT", "a": "Hydra", "b": "Buriram United", "involves_team": false}, {"date": "October 3, 2026 - 18:00 ICT", "a": "SOLYX", "b": "KOG", "involves_team": false}, {"date": "October 4, 2026 - 12:00 ICT", "a": "FULL SENSE", "b": "eArena", "involves_team": false}, {"date": "October 4, 2026 - 15:00 ICT", "a": "Bacon Time", "b": "SOLYX", "involves_team": true}, {"date": "October 4, 2026 - 18:00 ICT", "a": "Hydra", "b": "Tenacity", "involves_team": false}, {"date": "October 8, 2026 - 16:00 ICT", "a": "Bacon Time", "b": "Hydra", "involves_team": true}, {"date": "October 8, 2026 - 19:00 ICT", "a": "SOLYX", "b": "FULL SENSE", "involves_team": false}, {"date": "October 9, 2026 - 16:00 ICT", "a": "Bacon Time", "b": "Godji Check", "involves_team": true}, {"date": "October 9, 2026 - 19:00 ICT", "a": "Tenacity", "b": "KOG", "involves_team": false}, {"date": "October 10, 2026 - 12:00 ICT", "a": "SOLYX", "b": "Hydra", "involves_team": false}, {"date": "October 10, 2026 - 15:00 ICT", "a": "Buriram United", "b": "Godji Check", "involves_team": false}, {"date": "October 10, 2026 - 18:00 ICT", "a": "KOG", "b": "eArena", "involves_team": false}, {"date": "October 11, 2026 - 12:00 ICT", "a": "Tenacity", "b": "Buriram United", "involves_team": false}, {"date": "October 11, 2026 - 15:00 ICT", "a": "FULL SENSE", "b": "Bacon Time", "involves_team": true}, {"date": "October 11, 2026 - 18:00 ICT", "a": "eArena", "b": "SOLYX", "involves_team": false}], "prep": [{"opponent": "KOG", "date": "October 2, 2026 - 16:00 ICT", "threats": [{"hero": "taara", "n": 5, "w": 5, "wr": 100}, {"hero": "tamyn", "n": 5, "w": 5, "wr": 100}, {"hero": "cresht", "n": 4, "w": 4, "wr": 100}, {"hero": "liliana", "n": 8, "w": 7, "wr": 88}, {"hero": "biron", "n": 6, "w": 5, "wr": 83}, {"hero": "violet", "n": 10, "w": 8, "wr": 80}], "head_to_head": [{"date": "September 13, 2026", "score": "3-2", "won": true}]}, {"opponent": "SOLYX", "date": "October 4, 2026 - 15:00 ICT", "threats": [{"hero": "wisp", "n": 7, "w": 6, "wr": 86}, {"hero": "taara", "n": 4, "w": 3, "wr": 75}, {"hero": "iggy", "n": 7, "w": 5, "wr": 71}, {"hero": "tachi", "n": 5, "w": 3, "wr": 60}, {"hero": "valhein", "n": 5, "w": 3, "wr": 60}, {"hero": "thane", "n": 7, "w": 4, "wr": 57}], "head_to_head": [{"date": "August 29, 2026", "score": "3-2", "won": true}]}, {"opponent": "Hydra", "date": "October 8, 2026 - 16:00 ICT", "threats": [{"hero": "annette", "n": 6, "w": 4, "wr": 67}, {"hero": "taara", "n": 8, "w": 5, "wr": 62}, {"hero": "tachi", "n": 5, "w": 3, "wr": 60}, {"hero": "violet", "n": 5, "w": 3, "wr": 60}, {"hero": "dolia", "n": 6, "w": 3, "wr": 50}, {"hero": "sinestrea", "n": 4, "w": 2, "wr": 50}], "head_to_head": [{"date": "September 3, 2026", "score": "3-0", "won": true}]}, {"opponent": "Godji Check", "date": "October 9, 2026 - 16:00 ICT", "threats": [{"hero": "thane", "n": 6, "w": 4, "wr": 67}, {"hero": "ryoma", "n": 5, "w": 3, "wr": 60}, {"hero": "astrid", "n": 8, "w": 4, "wr": 50}, {"hero": "airi", "n": 4, "w": 2, "wr": 50}, {"hero": "lorion", "n": 4, "w": 2, "wr": 50}, {"hero": "maloch", "n": 4, "w": 2, "wr": 50}], "head_to_head": [{"date": "August 27, 2026", "score": "3-1", "won": true}]}, {"opponent": "FULL SENSE", "date": "October 11, 2026 - 15:00 ICT", "threats": [{"hero": "mina", "n": 4, "w": 4, "wr": 100}, {"hero": "ybneth", "n": 7, "w": 6, "wr": 86}, {"hero": "tamyn", "n": 6, "w": 5, "wr": 83}, {"hero": "astrid", "n": 6, "w": 5, "wr": 83}, {"hero": "rouie", "n": 5, "w": 4, "wr": 80}, {"hero": "stuart", "n": 5, "w": 4, "wr": 80}], "head_to_head": [{"date": "September 11, 2026", "score": "2-3", "won": false}]}], "mvps": [{"player": "Opar", "n": 6}, {"player": "Bonus", "n": 5}, {"player": "Kimsensei", "n": 4}, {"player": "MarkKy", "n": 4}], "recent": [{"date": "September 20, 2026", "a": "eArena", "b": "Godji Check", "score": "3-0"}, {"date": "September 20, 2026", "a": "KOG", "b": "Hydra", "score": "3-0"}, {"date": "September 20, 2026", "a": "FULL SENSE", "b": "Buriram United", "score": "0-3"}, {"date": "September 24, 2026", "a": "Godji Check", "b": "KOG", "score": "0-3"}, {"date": "September 24, 2026", "a": "eArena", "b": "Hydra", "score": "3-0"}, {"date": "September 25, 2026", "a": "SOLYX", "b": "Tenacity", "score": "2-3"}, {"date": "September 25, 2026", "a": "Buriram United", "b": "KOG", "score": "1-3"}, {"date": "September 27, 2026", "a": "Hydra", "b": "Godji Check", "score": "2-3"}, {"date": "September 27, 2026", "a": "FULL SENSE", "b": "Tenacity", "score": "3-2"}, {"date": "September 27, 2026", "a": "Bacon Time", "b": "Buriram United", "score": "2-3"}, {"date": "September 28, 2026", "a": "Godji Check", "b": "SOLYX", "score": "0-3"}, {"date": "September 28, 2026", "a": "eArena", "b": "Bacon Time", "score": "3-2"}]};</script>
+<script>
+/* RoV Team Tracker — front-end
+   อ่าน data/stats.json ที่สร้างจาก update.py แล้ว render เป็นแดชบอร์ด */
+
+let D = null;
+let currentTab = 'overview';
+
+const el = document.getElementById('app');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+const pct = v => (v === null || v === undefined) ? '–' : v + '%';
+const signed = v => (v > 0 ? '+' : '') + v;
+const cls = v => v > 0 ? 'pos' : (v < 0 ? 'neg' : '');
+
+/* ---------- small builders ---------- */
+function card(title, hint, body, wide) {
+  return `<section class="card${wide ? ' wide' : ''}">
+    <h2>${title}</h2>${hint ? `<p class="hint">${hint}</p>` : ''}${body}</section>`;
+}
+function kpi(label, value, comment) {
+  return `<div class="kpi"><span class="l">${label}</span>
+    <span class="n">${value}</span>${comment ? `<div class="c">${comment}</div>` : ''}</div>`;
+}
+/** bar: value 0-100, ref = เส้นอ้างอิง (ค่าเฉลี่ยลีก) */
+function bar(label, value, right, opts = {}) {
+  const v = Math.max(0, Math.min(100, value || 0));
+  let tone = opts.tone;
+  if (!tone && opts.ref != null) tone = value >= opts.ref ? 'good' : 'bad';
+  return `<div class="bar">
+    <span class="lbl" title="${esc(label)}">${esc(label)}</span>
+    <span class="track"><span class="fill ${tone || ''}" style="width:${v}%"></span>
+      ${opts.ref != null ? `<span class="ref" style="left:${Math.min(99, opts.ref)}%" title="ค่าเฉลี่ยลีก ${opts.ref}%"></span>` : ''}
+    </span>
+    <span class="val">${right}</span></div>`;
+}
+function table(headers, rows) {
+  return `<table><thead><tr>${headers.map(h =>
+    `<th class="${h.r ? 'r' : ''}">${h.t}</th>`).join('')}</tr></thead>
+    <tbody>${rows.join('')}</tbody></table>`;
+}
+
+/* ---------- tabs ---------- */
+const TABS = {
+
+  /* ======================= ภาพรวม ======================= */
+  overview() {
+    const me = D.standings.find(r => r.team === D.meta.team);
+    const o = D.odds;
+    const slots = D.meta.playoff_slots;
+
+    const zone = r => r.rank <= slots ? 'up' : (r.rank <= slots + 2 ? 'mid' : 'out');
+    const rows = D.standings.map(r => `<tr class="${r.team === D.meta.team ? 'me' : ''}">
+      <td><span class="zone ${zone(r)}"></span>${r.rank}</td>
+      <td>${esc(r.team)}</td>
+      <td class="r">${r.w}–${r.l}</td>
+      <td class="r">${r.gw}–${r.gl}</td>
+      <td class="r ${cls(r.diff)}">${signed(r.diff)}</td>
+      <td class="r">${r.remaining}</td>
+      <td class="r muted">${r.max_points}</td></tr>`);
+
+    const place = Object.entries(o.placement)
+      .filter(([, v]) => v >= 0.5)
+      .sort((a, b) => b[1] - a[1]);
+
+    const mySchedule = D.schedule.filter(s => s.involves_team);
+
+    return `
+    <div class="grid">
+      ${card('โอกาสเข้ารอบ', `จำลอง ${o.sims.toLocaleString()} รอบจากฟอร์มปัจจุบัน`, `
+        <div class="stat"><span class="v">${o.top4}%</span><span class="u">เข้าท็อป ${slots}</span></div>
+        <div class="kpis" style="margin-top:14px">
+          ${kpi('ชนะที่เหลือครบ', o.win_out + '%', `${mySchedule.length} นัด`)}
+          ${kpi('เข้ารอบถ้าชนะครบ', o.top4_if_win_out + '%', 'ต้องรอผลทีมอื่นด้วย')}
+        </div>
+        ${o.top4 < 1 ? `<div class="verdict">โอกาสเข้ารอบต่ำกว่า 1% แล้ว — เป้าที่วัดผลได้จริงตอนนี้คือ
+          <b>${esc(o.goal_label)}</b> และการปิดฤดูกาลให้ดีที่สุด</div>` : ''}`)}
+
+      ${card('อันดับที่น่าจะจบ', 'กระจายตามผลจำลอง', `<div class="bars">
+        ${place.map(([rank, v]) => bar('อันดับ ' + rank, v, v + '%',
+          { tone: +rank <= slots ? 'good' : 'info' })).join('')}</div>`)}
+
+      ${card('สถานะทีม', `${D.meta.played} จาก ${D.meta.total} แมตช์ในลีกแข่งจบแล้ว`, `
+        <div class="kpis">
+          ${kpi('อันดับ', '#' + me.rank, me.w + '–' + me.l)}
+          ${kpi('ผลต่างเกม', signed(me.diff), me.gw + '–' + me.gl)}
+          ${kpi('เหลือ', me.remaining + ' นัด', 'เพดาน ' + me.max_points + ' แต้ม')}
+          ${kpi('ค่าพลัง', signed(D.ratings[D.meta.team]),
+            'อันดับ ' + (Object.values(D.ratings).filter(v => v > D.ratings[D.meta.team]).length + 1) + ' ของลีก')}
+        </div>`)}
+    </div>
+
+    ${card('ตารางคะแนน', `แถบสีเขียว = โซนเข้ารอบ (${slots} ทีม)`, table(
+      [{ t: '#' }, { t: 'ทีม' }, { t: 'แมตช์', r: 1 }, { t: 'เกม', r: 1 },
+       { t: 'Diff', r: 1 }, { t: 'เหลือ', r: 1 }, { t: 'เพดาน', r: 1 }], rows), true)}
+
+    <div class="grid">
+      ${card('โปรแกรมที่เหลือของเรา', 'เวลาไทย', `<div class="flowlist">
+        ${mySchedule.map(s => {
+          const opp = s.a === D.meta.team ? s.b : s.a;
+          return `<div class="flowrow"><span>${esc(opp)}</span>
+            <span class="muted small">${esc(s.date.replace(' - ', ' • '))}</span><span></span></div>`;
+        }).join('') || '<p class="muted small">ไม่มีแมตช์เหลือแล้ว</p>'}</div>`)}
+
+      ${card('นัดที่ต้องลุ้น (เราไม่ได้ลงเล่น)', `ผลกระทบต่อเป้า "${esc(o.goal_label)}"`, `<div class="flowlist">
+        ${o.swing.slice(0, 7).map(s => `<div class="flowrow">
+          <span class="small">${esc(s.match)}</span>
+          <span class="tag w">เชียร์ ${esc(s.root_for)}</span>
+          <span class="val small num">${s.gap >= 0.1 ? '±' + s.gap + '%' : '~0'}</span></div>`).join('')}
+        </div><p class="legend">ตัวเลขคือส่วนต่างของโอกาสระหว่างสองผลลัพธ์ ยิ่งสูงยิ่งสำคัญ</p>`)}
+
+      ${card('โอกาสจบเหนือแต่ละทีม', 'จากผลจำลองทั้งฤดูกาล', `<div class="bars">
+        ${o.finish_above.map(f => bar(f.team, f.pct, f.pct + '%',
+          { tone: f.pct >= 50 ? 'good' : 'bad' })).join('')}</div>`)}
+    </div>
+
+    ${card('ผลแข่งล่าสุดของลีก', '', table(
+      [{ t: 'วันที่' }, { t: 'คู่' }, { t: 'สกอร์', r: 1 }],
+      D.recent.slice().reverse().map(r => `<tr class="${[r.a, r.b].includes(D.meta.team) ? 'me' : ''}">
+        <td class="muted small">${esc(r.date)}</td>
+        <td>${esc(r.a)} <span class="muted">vs</span> ${esc(r.b)}</td>
+        <td class="r">${r.score}</td></tr>`)), true)}`;
+  },
+
+  /* ======================= วินิจฉัย ======================= */
+  diagnosis() {
+    const d = D.diagnostics;
+    const g1 = d.by_game_no[0] || {};
+    const long = d.by_length[d.by_length.length - 1] || {};
+
+    return `
+    <div class="grid">
+      ${card('จุดรั่ว 4 อย่างที่วัดได้', 'เทียบกับค่าเฉลี่ยลีก 50%', `<div class="kpis">
+        ${kpi('ชนะเกมแรกของซีรีส์', pct(g1.wr), `${g1.w}–${g1.n - g1.w} • ลีก ${pct(g1.league_wr)}`)}
+        ${kpi('ปิดซีรีส์เมื่อมีโอกาส', pct(d.closeout.wr), `${d.closeout.w} จาก ${d.closeout.n} ครั้ง`)}
+        ${kpi('เกมยาวเกิน 20 นาที', pct(long.wr), `${long.w}–${long.n - long.w}`)}
+        ${kpi('เจอ 5 ทีมบน', pct(d.tiers.top.wr), `แมตช์ ${d.tiers.top.mw}–${d.tiers.top.ml}`)}
+      </div>
+      <div class="verdict">ถ้าจุดเหล่านี้กองอยู่ที่ <b>เกมแรก + การปิดเกม</b> แปลว่าปัญหาอยู่ชั้น
+        การเตรียมตัวก่อนเกมและการตัดสินใจร่วมกัน ไม่ใช่ชั้นฝีมือรายคน</div>`, true)}
+    </div>
+
+    <div class="grid">
+      ${card('อัตราชนะตามลำดับเกมในซีรีส์', 'เส้นขาว = ค่าเฉลี่ยลีก', `<div class="bars">
+        ${d.by_game_no.map(r => bar('เกมที่ ' + r.game, r.wr,
+          `${r.w}–${r.n - r.w}`, { ref: r.league_wr })).join('')}</div>
+        <p class="legend">เกมแรกต่ำแต่เกมสองสูง = ทีมแก้ทางเก่ง แต่เข้าเกมโดยไม่มีแผนเปิดที่คม</p>`)}
+
+      ${card('อัตราชนะตามความยาวเกม', 'บอกว่าทีมนี้ชนะในหน้าต่างเวลาไหน', `<div class="bars">
+        ${d.by_length.map(r => bar(r.label, r.wr, r.n ? `${r.w}–${r.n - r.w}` : '–',
+          { ref: r.league_wr })).join('')}</div>
+        <p class="legend">หน้าต่างที่ชนะสูงสุดคือแผนเกมที่ควรเล็ง ส่วนช่วงที่ตกคือช่วงที่ต้องเลี่ยง</p>`)}
+
+      ${card('สถานการณ์กดดัน', '', `<div class="kpis">
+        ${kpi('เล่นตอนนำอยู่', pct(d.leading.wr), `${d.leading.w}/${d.leading.n} เกม`)}
+        ${kpi('เล่นตอนตามหลัง', pct(d.trailing.wr), `${d.trailing.w}/${d.trailing.n} เกม`)}
+        ${kpi('เกมตัดสิน (2–2)', `${d.deciders.w}/${d.deciders.n}`, 'เกมที่ 5')}
+        ${kpi('ฝั่งน้ำเงิน / แดง', `${pct(d.sides.blue.wr)} / ${pct(d.sides.red.wr)}`,
+          `ลีก ${pct(d.sides.blue.league_wr)} / ${pct(d.sides.red.league_wr)}`)}
+      </div>
+      <p class="legend">ถ้า "ตามหลัง" ใกล้ 50% แปลว่าใจสู้และการตีตื้นไม่ใช่ปัญหา</p>`)}
+
+      ${card('เจอทีมบนกับทีมล่าง', `ทีมบน = ${d.tiers.top_teams.join(', ')}`, `<div class="bars">
+        ${bar('เจอ 5 ทีมบน', d.tiers.top.wr, `${d.tiers.top.gw}–${d.tiers.top.gl}`, { tone: 'bad' })}
+        ${bar('เจอทีมท้ายตาราง', d.tiers.bottom.wr, `${d.tiers.bottom.gw}–${d.tiers.bottom.gl}`, { tone: 'good' })}
+        </div><p class="legend">ช่องว่างยิ่งกว้าง ยิ่งบอกว่าเป็นกำแพงเรื่องระดับ ไม่ใช่ความไม่สม่ำเสมอ</p>`)}
+    </div>
+
+    ${card('ผลทุกแมตช์แบบเกมต่อเกม', 'W = ชนะเกมนั้น', `<div class="flowlist">
+      ${d.series.map(s => `<div class="flowrow">
+        <span>${esc(s.opponent)} <span class="muted small">${esc(s.date)}</span></span>
+        <span class="flow">${s.flow.split('').map(c =>
+          `<span class="g ${c.toLowerCase()}">${c}</span>`).join('')}</span>
+        <span class="tag ${s.won ? 'w' : 'l'}">${s.score}</span></div>`).join('')}
+      </div>`, true)}
+
+    ${D.mvps.length ? card('MVP รายเกม (เฉพาะเกมที่ทีมชนะ)', 'ดูว่าภาระกระจายหรือกระจุก', `<div class="chips">
+      ${D.mvps.map(m => `<span class="chip">${esc(m.player)} <b>${m.n}</b></span>`).join('')}</div>`, true) : ''}`;
+  },
+
+  /* ======================= ดราฟท์ ======================= */
+  draft() {
+    const h = D.heroes;
+    const good = h.pool.filter(p => p.n >= 4 && p.wr >= 60);
+    const bad = h.pool.filter(p => p.n >= 4 && p.wr <= 40);
+    const sum = arr => arr.reduce((a, p) => ({ n: a.n + p.n, w: a.w + p.w }), { n: 0, w: 0 });
+    const G = sum(good), B = sum(bad);
+
+    return `
+    <div class="grid">
+      ${card('พูลที่เวิร์ก vs พูลที่พัง', 'นับเฉพาะฮีโร่ที่ลงเล่นตั้งแต่ 4 เกมขึ้นไป', `
+        <div class="kpis">
+          ${kpi('พูลที่เวิร์ก', G.n ? Math.round(G.w / G.n * 100) + '%' : '–', `${G.w} จาก ${G.n} เกม`)}
+          ${kpi('พูลที่พัง', B.n ? Math.round(B.w / B.n * 100) + '%' : '–', `${B.w} จาก ${B.n} เกม`)}
+        </div>
+        <div class="verdict">ถ้าช่องว่างสองก้อนนี้กว้างมาก แปลว่ามีแต้มฟรีรออยู่แค่ <b>เลิกดราฟท์จากพูลล่าง</b></div>`)}
+
+      ${card('ฮีโร่ที่เล่นแล้วดีกว่าค่าเฉลี่ยลีกมากที่สุด', 'edge = ส่วนต่างจากลีก', `<div class="bars">
+        ${h.pool.slice().sort((a, b) => b.edge - a.edge).slice(0, 8).map(p =>
+          bar(cap(p.hero), p.wr, `${p.wr}% (${signed(p.edge)})`, { ref: p.league_wr })).join('')}
+        </div><p class="legend">เส้นขาวคืออัตราชนะของฮีโร่นั้นทั้งลีก</p>`)}
+    </div>
+
+    <div class="grid">
+      ${card('ทุกตัวที่ทีมใช้', 'เรียงจากดีไปแย่', table(
+        [{ t: 'ฮีโร่' }, { t: 'เกม', r: 1 }, { t: 'W–L', r: 1 }, { t: 'ทีม', r: 1 }, { t: 'ลีก', r: 1 }, { t: 'ต่าง', r: 1 }],
+        h.pool.map(p => `<tr><td>${cap(p.hero)}</td><td class="r">${p.n}</td>
+          <td class="r">${p.w}–${p.n - p.w}</td><td class="r">${p.wr}%</td>
+          <td class="r muted">${pct(p.league_wr)}</td>
+          <td class="r ${cls(p.edge)}">${signed(p.edge)}</td></tr>`)), true)}
+    </div>
+
+    <div class="grid">
+      ${card('ฮีโร่ที่ปล่อยแล้วโดนลงโทษ', 'คู่แข่งหยิบไปใช้กับเราแล้วชนะ', table(
+        [{ t: 'ฮีโร่' }, { t: 'เกม', r: 1 }, { t: 'เขาชนะ', r: 1 }],
+        h.punished.map(p => `<tr><td>${cap(p.hero)}</td><td class="r">${p.n}</td>
+          <td class="r neg">${p.wr}%</td></tr>`)))}
+
+      ${card('คู่แข่งแบนใส่เราเกินค่าเฉลี่ยลีก', 'gap สูง = ถูกเล็งจริง ไม่ใช่แบนตามเมต้า', table(
+        [{ t: 'ฮีโร่' }, { t: 'ใส่เรา', r: 1 }, { t: 'ลีก', r: 1 }, { t: 'gap', r: 1 }],
+        h.targeted.map(p => `<tr><td>${cap(p.hero)}</td><td class="r">${p.rate}%</td>
+          <td class="r muted">${p.league_rate}%</td>
+          <td class="r ${cls(p.gap)}">${signed(p.gap)}</td></tr>`)))}
+
+      ${card('ของว่างในลีกที่ทีมยังไม่ใช้', 'ชนะสูงแต่ถูกแบนน้อย', table(
+        [{ t: 'ฮีโร่' }, { t: 'ลีกชนะ', r: 1 }, { t: 'presence', r: 1 }, { t: 'เราใช้', r: 1 }],
+        h.untapped.map(p => `<tr><td>${cap(p.hero)}</td>
+          <td class="r pos">${p.league_wr}%</td><td class="r muted">${p.presence}%</td>
+          <td class="r ${p.team_n === 0 ? 'neg' : ''}">${p.team_n}</td></tr>`)))}
+
+      ${card('ตัวที่ทีมแบนบ่อยสุด', 'เทียบกับลิสต์ด้านซ้ายว่าแบนตรงจุดไหม', `<div class="chips">
+        ${h.team_bans.map(b => `<span class="chip">${cap(b.hero)} <b>${b.n}</b></span>`).join('')}</div>`)}
+    </div>`;
+  },
+
+  /* ======================= จังหวะเกม ======================= */
+  tempo() {
+    const t = D.tempo, h = D.heroes;
+    const label = { faster: 'คอมเราเร็วกว่าเขา', even: 'จังหวะใกล้กัน', slower: 'คอมเราช้ากว่าเขา' };
+
+    return `
+    ${card('แนวคิด', '', `<p class="small muted" style="margin:0">
+      ฮีโร่แต่ละตัวมี "จังหวะ" ของมัน วัดจากความยาวเฉลี่ยของเกมที่มันถูกใช้ เอาค่าของ 5 ตัวมาเฉลี่ยจะได้จังหวะของคอมนั้น
+      แล้วเทียบกับคอมของคู่แข่งในเกมเดียวกัน ตัวเลขนี้บอกว่า <strong>ทีมถนัดเล่นเกมจังหวะไหน</strong>
+      และเป็นเหตุผลที่ควรใช้ตัดสินใจแบน มากกว่าการดูว่าฮีโร่ตัวไหนคู่แข่งชนะเยอะ</p>`, true)}
+
+    <div class="grid">
+      ${card('ผลของทีมตามจังหวะคอม', 'เส้นขาว = ค่าเฉลี่ยของทั้งลีกในสถานการณ์เดียวกัน', `<div class="bars">
+        ${['faster', 'even', 'slower'].map(k => bar(label[k], t.team[k].wr,
+          `${t.team[k].w}–${t.team[k].n - t.team[k].w}`, { ref: t.league[k].wr })).join('')}</div>
+        <div class="verdict">ถ้าช่อง "คอมเราช้ากว่า" ต่ำกว่าลีกชัดเจน แปลว่า
+          <b>ทีมดราฟท์คอมที่ต้องการเวลา แต่ยังไม่มีมาโครรองรับ</b> — ทางแก้เร็วสุดคือเลิกดราฟท์แนวนั้น</div>`)}
+
+      ${card('ทีมไหนเล่นคอมช้าได้จริง', 'เทียบกันทั้งลีก', `<div class="bars">
+        ${t.slow_comp_by_team.map(r => bar(r.team, r.wr, `${r.w}–${r.n - r.w}`,
+          { tone: r.team === D.meta.team ? 'bad' : 'info' })).join('')}</div>
+        <p class="legend">คอมช้าไม่ใช่คอมแพ้ — ทีมที่ทำได้ดีในช่องนี้คือทีมที่เล่นเกมยาวเป็น</p>`)}
+    </div>
+
+    <div class="grid">
+      ${card('ฮีโร่สายเกมเร็ว', 'ยิ่งเกมสั้นยิ่งชนะ — ถ้าคอมเราต้องการเวลา พวกนี้คือตัวที่ต้องแบน', table(
+        [{ t: 'ฮีโร่' }, { t: '<16 นาที', r: 1 }, { t: '>16 นาที', r: 1 }, { t: 'ต่าง', r: 1 }],
+        h.fast_heroes.map(f => `<tr><td>${cap(f.hero)}</td>
+          <td class="r pos">${f.short_wr}%</td><td class="r">${f.long_wr}%</td>
+          <td class="r">${signed(f.swing)}</td></tr>`)))}
+
+      ${card('ฮีโร่สายเกมยาว', 'ต้องรอสเกล — หยิบได้เมื่อมั่นใจว่าจะรอดถึงนาทีนั้น', table(
+        [{ t: 'ฮีโร่' }, { t: '<16 นาที', r: 1 }, { t: '>16 นาที', r: 1 }, { t: 'ต่าง', r: 1 }],
+        h.slow_heroes.map(f => `<tr><td>${cap(f.hero)}</td>
+          <td class="r">${f.short_wr}%</td><td class="r pos">${f.long_wr}%</td>
+          <td class="r">${signed(f.swing)}</td></tr>`)))}
+    </div>
+
+    ${card('รายเกมของทีม', 'ค่าจังหวะคอมของเราเทียบของเขา และเกมนั้นยาวจริงเท่าไหร่', table(
+      [{ t: 'คู่แข่ง' }, { t: 'คอมเรา', r: 1 }, { t: 'คอมเขา', r: 1 }, { t: 'แบบ' }, { t: 'นาที', r: 1 }, { t: 'ผล', r: 1 }],
+      t.games.map(g => `<tr><td>${esc(g.opponent)}</td>
+        <td class="r">${g.ours}</td><td class="r">${g.theirs}</td>
+        <td class="small muted">${label[g.kind]}</td>
+        <td class="r">${g.minutes ?? '–'}</td>
+        <td class="r"><span class="tag ${g.won ? 'w' : 'l'}">${g.won ? 'ชนะ' : 'แพ้'}</span></td></tr>`)), true)}`;
+  },
+
+  /* ======================= เมต้า ======================= */
+  meta() {
+    if (!D.meta_shift) return card('ไม่มีข้อมูลเปรียบเทียบ', '', '<p class="muted small">ยังไม่มีข้อมูลสปลิตก่อนหน้าสำหรับเทียบเมต้า</p>', true);
+    const m = D.meta_shift, a = m.adaptation;
+
+    return `
+    <div class="grid">
+      ${card('ทีมตามเมต้าใหม่ทันไหม', `อัตราชนะบนฮีโร่ที่ presence พุ่งขึ้นจาก ${m.prev_label} มา ${m.cur_label}`, `
+        <div class="bars">
+          ${bar('ทีมของเรา', a.team_wr, `${a.team_wr}% (${a.team_n} ครั้ง)`, { ref: a.league_wr })}
+          ${bar('ทีมอื่นทั้งลีก', a.league_wr, `${a.league_wr}% (${a.league_n} ครั้ง)`, { tone: 'info' })}
+        </div>
+        <div class="verdict">ช่องว่างตรงนี้คือ <b>ความเร็วในการปรับตัวเข้าแพตช์</b> ซึ่งเป็นเรื่องกระบวนการซ้อม
+          ไม่ใช่ฝีมือ — ถ้าต่ำกว่าลีกเกิน 5 จุด แปลว่าต้องรื้อวิธีเตรียมพูลฮีโร่</div>`, true)}
+    </div>
+
+    <div class="grid">
+      ${card('ตัวที่มาแรงในสปลิตนี้', 'presence = สัดส่วนเกมที่ถูกพิกหรือแบน', table(
+        [{ t: 'ฮีโร่' }, { t: m.prev_label, r: 1 }, { t: m.cur_label, r: 1 }, { t: 'ทีมใช้', r: 1 }],
+        m.risers.map(r => `<tr><td>${cap(r.hero)}</td>
+          <td class="r muted">${r.prev}%</td><td class="r pos">${r.cur}%</td>
+          <td class="r ${r.team_cur === 0 ? 'neg' : ''}">${r.team_cur} เกม</td></tr>`)))}
+
+      ${card('ตัวที่ร่วงจากเมต้า', '', table(
+        [{ t: 'ฮีโร่' }, { t: m.prev_label, r: 1 }, { t: m.cur_label, r: 1 }],
+        m.fallers.map(r => `<tr><td>${cap(r.hero)}</td>
+          <td class="r">${r.prev}%</td><td class="r neg">${r.cur}%</td></tr>`)))}
+
+      ${card('ของถนัดเดิมที่หายไป', `ตัวที่ทีมใช้บ่อยใน ${m.prev_label} แต่แทบไม่ได้ใช้แล้ว`, table(
+        [{ t: 'ฮีโร่' }, { t: m.prev_label, r: 1 }, { t: m.cur_label, r: 1 }],
+        m.lost_tools.map(r => `<tr><td>${cap(r.hero)}</td>
+          <td class="r">${r.prev} เกม</td><td class="r neg">${r.cur} เกม</td></tr>`)))}
+    </div>`;
+  },
+
+  /* ======================= คู่ต่อไป ======================= */
+  prep() {
+    if (!D.prep.length) return card('จบฤดูกาลแล้ว', '', '<p class="muted small">ไม่มีแมตช์เหลือ</p>', true);
+    return D.prep.map(p => card(
+      `${esc(p.opponent)} <span class="muted small" style="font-weight:400">${esc(p.date.replace(' - ', ' • '))}</span>`,
+      p.head_to_head.length
+        ? 'เจอกันมาแล้ว: ' + p.head_to_head.map(h =>
+            `${h.date} ${h.won ? 'ชนะ' : 'แพ้'} ${h.score}`).join(' | ')
+        : 'ยังไม่เคยเจอกันในสปลิตนี้',
+      `<p class="small muted" style="margin:0 0 8px">ตัวที่เขาเล่นแล้วแรงที่สุด (ตั้งแต่ 4 เกมขึ้นไป) — ใช้เป็นลิสต์ตั้งต้นในการแบน แล้วค่อยกรองด้วยว่าตัวไหนตีคอมที่เราจะเล่น</p>
+       <div class="chips">${p.threats.map(t =>
+         `<span class="chip ${t.wr >= 70 ? 'bad' : ''}">${cap(t.hero)} <b>${t.wr}%</b>
+          <span class="muted small">${t.n} เกม</span></span>`).join('')}</div>`, true)).join('');
+  },
+};
+
+/* ---------- boot ---------- */
+function render() {
+  el.innerHTML = TABS[currentTab]();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-tab]');
+  if (!btn) return;
+  currentTab = btn.dataset.tab;
+  [...document.querySelectorAll('#tabs button')].forEach(b =>
+    b.classList.toggle('active', b === btn));
+  render();
+});
+
+/** ถ้าเป็นไฟล์ standalone ข้อมูลจะถูกฝังมาใน window.__STATS__ แล้ว ไม่ต้อง fetch */
+const source = window.__STATS__
+  ? Promise.resolve(window.__STATS__)
+  : fetch('data/stats.json', { cache: 'no-store' })
+      .then(r => { if (!r.ok) throw new Error('โหลด data/stats.json ไม่ได้ (' + r.status + ')'); return r.json(); });
+
+source
+  .then(data => {
+    D = data;
+    const me = D.standings.find(r => r.team === D.meta.team);
+    document.title = `${D.meta.team} Tracker — ${D.meta.tournament}`;
+    document.getElementById('teamName').textContent = D.meta.team;
+    document.getElementById('subtitle').textContent =
+      `RoV Pro League ${D.meta.tournament} • แข่งไปแล้ว ${D.meta.played}/${D.meta.total} แมตช์ของลีก`;
+    document.getElementById('headline').innerHTML = `
+      <span class="pill">อันดับ <b>#${me.rank}</b></span>
+      <span class="pill">สถิติ <b>${me.w}–${me.l}</b></span>
+      <span class="pill">Diff <b>${signed(me.diff)}</b></span>
+      <span class="pill">เข้ารอบ <b>${D.odds.top4}%</b></span>`;
+    document.getElementById('srcLink').href = D.meta.source_url;
+    document.getElementById('updatedAt').textContent =
+      'อัปเดตข้อมูลล่าสุด: ' + new Date(D.meta.updated_at).toLocaleString('th-TH');
+    render();
+  })
+  .catch(err => {
+    el.innerHTML = `<div class="card"><h2>โหลดข้อมูลไม่สำเร็จ</h2>
+      <p class="hint">${esc(err.message)}</p>
+      <p class="small">ให้รัน <code>python3 update.py</code> เพื่อสร้างไฟล์ data/stats.json ก่อน
+      แล้วเปิดเว็บผ่าน <code>python3 -m http.server 8000</code> (เปิดไฟล์ตรง ๆ ด้วย file:// จะติด CORS)</p></div>`;
+  });
+
+</script>
+</body>
+</html>

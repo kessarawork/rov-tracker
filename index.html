@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoV Team Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot"></span>
+      <div>
+        <h1 id="teamName">กำลังโหลด…</h1>
+        <p id="subtitle" class="muted"></p>
+      </div>
+    </div>
+    <div class="headline" id="headline"></div>
+  </div>
+</header>
+
+<nav class="tabs wrap" id="tabs">
+  <button data-tab="overview" class="active">ภาพรวม</button>
+  <button data-tab="diagnosis">วินิจฉัยปัญหา</button>
+  <button data-tab="draft">ดราฟท์ &amp; ฮีโร่</button>
+  <button data-tab="tempo">จังหวะเกม</button>
+  <button data-tab="meta">เมต้าเปลี่ยน</button>
+  <button data-tab="prep">คู่ต่อไป</button>
+</nav>
+
+<main class="wrap" id="app">
+  <p class="loading">กำลังโหลดข้อมูล…</p>
+</main>
+
+<footer class="wrap">
+  <p class="muted small">
+    ข้อมูลผลการแข่งขันจาก <a id="srcLink" href="https://liquipedia.net/honorofkings/" target="_blank" rel="noopener">Liquipedia</a>
+    เผยแพร่ภายใต้สัญญาอนุญาต CC-BY-SA — สถิติและตัวเลขความน่าจะเป็นทั้งหมดในหน้านี้คำนวณขึ้นเองจากข้อมูลรายเกม
+    <strong>ไม่ใช่สถิติทางการ</strong> กลุ่มตัวอย่างบางส่วนมีขนาดเล็ก ให้ใช้ดูแนวโน้มเท่านั้น
+  </p>
+  <p class="muted small" id="updatedAt"></p>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
