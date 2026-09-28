@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-09-28T11:49:33+00:00",
+  "updated_at": "2026-09-28T12:03:49+00:00",
   "played": 51,
   "total": 72,
   "playoff_slots": 4
@@ -1108,19 +1108,19 @@
   },
   "league": {
    "faster": {
-    "n": 124,
-    "w": 69,
-    "wr": 56
+    "n": 123,
+    "w": 68,
+    "wr": 55
    },
    "even": {
-    "n": 158,
-    "w": 79,
+    "n": 160,
+    "w": 80,
     "wr": 50
    },
    "slower": {
-    "n": 124,
+    "n": 123,
     "w": 55,
-    "wr": 44
+    "wr": 45
    }
   },
   "slow_comp_by_team": [
@@ -1138,9 +1138,9 @@
    },
    {
     "team": "FULL SENSE",
-    "n": 12,
+    "n": 11,
     "w": 6,
-    "wr": 50
+    "wr": 55
    },
    {
     "team": "SOLYX",
@@ -1601,14 +1601,6 @@
     "team_cur": 2
    },
    {
-    "hero": "cresht",
-    "prev": 7,
-    "cur": 25,
-    "delta": 19,
-    "team_prev": 2,
-    "team_cur": 5
-   },
-   {
     "hero": "violet",
     "prev": 9,
     "cur": 27,
@@ -1623,6 +1615,14 @@
     "delta": 19,
     "team_prev": 13,
     "team_cur": 8
+   },
+   {
+    "hero": "cresht",
+    "prev": 7,
+    "cur": 25,
+    "delta": 19,
+    "team_prev": 2,
+    "team_cur": 5
    },
    {
     "hero": "wiro",
@@ -1699,20 +1699,20 @@
     "team_cur": 8
    },
    {
-    "hero": "fennik",
-    "prev": 30,
-    "cur": 5,
-    "delta": -25,
-    "team_prev": 3,
-    "team_cur": 0
-   },
-   {
     "hero": "sinestrea",
     "prev": 94,
     "cur": 69,
     "delta": -25,
     "team_prev": 8,
     "team_cur": 5
+   },
+   {
+    "hero": "fennik",
+    "prev": 30,
+    "cur": 5,
+    "delta": -25,
+    "team_prev": 3,
+    "team_cur": 0
    },
    {
     "hero": "edras",
@@ -1785,14 +1785,14 @@
   "cur_label": "Winter 2026"
  },
  "odds": {
-  "top4": 0.05,
-  "win_out": 2.05,
-  "top4_if_win_out": 2.4,
+  "top4": 0.1,
+  "win_out": 2.02,
+  "top4_if_win_out": 4.8,
   "placement": {
    "4": 0.1,
-   "5": 2.1,
-   "6": 50.6,
-   "7": 47.0,
+   "5": 2.2,
+   "6": 51.2,
+   "7": 46.3,
    "8": 0.2
   },
   "finish_above": [
@@ -1806,11 +1806,11 @@
    },
    {
     "team": "SOLYX",
-    "pct": 52.6
+    "pct": 53.4
    },
    {
     "team": "eArena",
-    "pct": 1.5
+    "pct": 1.7
    },
    {
     "team": "KOG",
@@ -1834,21 +1834,21 @@
   "rival": "SOLYX",
   "swing": [
    {
+    "match": "SOLYX vs FULL SENSE",
+    "a": "SOLYX",
+    "b": "FULL SENSE",
+    "root_for": "FULL SENSE",
+    "if_a": 32.9,
+    "if_b": 58.2,
+    "gap": 25.4
+   },
+   {
     "match": "SOLYX vs KOG",
     "a": "SOLYX",
     "b": "KOG",
     "root_for": "KOG",
-    "if_a": 36.8,
-    "if_b": 61.6,
-    "gap": 24.9
-   },
-   {
-    "match": "SOLYX vs Hydra",
-    "a": "SOLYX",
-    "b": "Hydra",
-    "root_for": "Hydra",
-    "if_a": 50.4,
-    "if_b": 75.2,
+    "if_a": 36.5,
+    "if_b": 61.5,
     "gap": 24.9
    },
    {
@@ -1856,75 +1856,75 @@
     "a": "eArena",
     "b": "SOLYX",
     "root_for": "eArena",
-    "if_a": 60.4,
-    "if_b": 36.2,
-    "gap": 24.2
+    "if_a": 62.0,
+    "if_b": 37.5,
+    "gap": 24.6
    },
    {
-    "match": "SOLYX vs FULL SENSE",
+    "match": "SOLYX vs Hydra",
     "a": "SOLYX",
+    "b": "Hydra",
+    "root_for": "Hydra",
+    "if_a": 50.8,
+    "if_b": 73.8,
+    "gap": 23.0
+   },
+   {
+    "match": "Godji Check vs FULL SENSE",
+    "a": "Godji Check",
     "b": "FULL SENSE",
     "root_for": "FULL SENSE",
-    "if_a": 34.3,
-    "if_b": 57.7,
-    "gap": 23.4
+    "if_a": 52.6,
+    "if_b": 54.1,
+    "gap": 1.5
    },
    {
-    "match": "Buriram United vs eArena",
-    "a": "Buriram United",
-    "b": "eArena",
-    "root_for": "eArena",
-    "if_a": 50.9,
-    "if_b": 54.4,
-    "gap": 3.6
-   },
-   {
-    "match": "Hydra vs FULL SENSE",
-    "a": "Hydra",
-    "b": "FULL SENSE",
-    "root_for": "FULL SENSE",
-    "if_a": 52.2,
-    "if_b": 54.9,
-    "gap": 2.8
-   },
-   {
-    "match": "Tenacity vs Buriram United",
+    "match": "Tenacity vs KOG",
     "a": "Tenacity",
-    "b": "Buriram United",
-    "root_for": "Buriram United",
-    "if_a": 52.7,
-    "if_b": 54.8,
-    "gap": 2.1
-   },
-   {
-    "match": "Hydra vs Tenacity",
-    "a": "Hydra",
-    "b": "Tenacity",
+    "b": "KOG",
     "root_for": "Tenacity",
-    "if_a": 53.4,
-    "if_b": 55.2,
-    "gap": 1.7
+    "if_a": 53.7,
+    "if_b": 52.5,
+    "gap": 1.2
    },
    {
     "match": "Tenacity vs eArena",
     "a": "Tenacity",
     "b": "eArena",
     "root_for": "Tenacity",
-    "if_a": 55.6,
-    "if_b": 53.9,
-    "gap": 1.6
+    "if_a": 53.7,
+    "if_b": 52.7,
+    "gap": 1.1
    },
    {
-    "match": "KOG vs eArena",
-    "a": "KOG",
+    "match": "Hydra vs Buriram United",
+    "a": "Hydra",
+    "b": "Buriram United",
+    "root_for": "Hydra",
+    "if_a": 53.8,
+    "if_b": 52.9,
+    "gap": 0.9
+   },
+   {
+    "match": "Buriram United vs eArena",
+    "a": "Buriram United",
     "b": "eArena",
     "root_for": "eArena",
-    "if_a": 51.1,
-    "if_b": 52.7,
-    "gap": 1.6
+    "if_a": 53.3,
+    "if_b": 53.9,
+    "gap": 0.6
+   },
+   {
+    "match": "Godji Check vs Tenacity",
+    "a": "Godji Check",
+    "b": "Tenacity",
+    "root_for": "Tenacity",
+    "if_a": 54.2,
+    "if_b": 54.7,
+    "gap": 0.5
    }
   ],
-  "sims": 6000
+  "sims": 40000
  },
  "schedule": [
   {
