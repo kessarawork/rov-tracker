@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-09-30T11:56:03+00:00",
+  "updated_at": "2026-09-30T17:41:45+00:00",
   "played": 52,
   "total": 72,
   "playoff_slots": 4
@@ -1617,20 +1617,20 @@
     "team_cur": 2
    },
    {
-    "hero": "violet",
-    "prev": 9,
-    "cur": 28,
-    "delta": 19,
-    "team_prev": 3,
-    "team_cur": 10
-   },
-   {
     "hero": "cresht",
     "prev": 7,
     "cur": 26,
     "delta": 19,
     "team_prev": 2,
     "team_cur": 6
+   },
+   {
+    "hero": "violet",
+    "prev": 9,
+    "cur": 28,
+    "delta": 19,
+    "team_prev": 3,
+    "team_cur": 10
    },
    {
     "hero": "ybneth",
@@ -1675,19 +1675,19 @@
     "team_cur": 2
    },
    {
-    "hero": "zata",
-    "prev": 70,
-    "cur": 41,
-    "delta": -29,
-    "team_prev": 4,
-    "team_cur": 3
-   },
-   {
     "hero": "murad",
     "prev": 51,
     "cur": 21,
     "delta": -29,
     "team_prev": 6,
+    "team_cur": 3
+   },
+   {
+    "hero": "zata",
+    "prev": 70,
+    "cur": 41,
+    "delta": -29,
+    "team_prev": 4,
     "team_cur": 3
    },
    {
@@ -1707,12 +1707,12 @@
     "team_cur": 0
    },
    {
-    "hero": "sinestrea",
-    "prev": 94,
-    "cur": 69,
+    "hero": "tachi",
+    "prev": 60,
+    "cur": 35,
     "delta": -25,
-    "team_prev": 8,
-    "team_cur": 5
+    "team_prev": 12,
+    "team_cur": 8
    },
    {
     "hero": "fennik",
@@ -1723,12 +1723,12 @@
     "team_cur": 0
    },
    {
-    "hero": "tachi",
-    "prev": 60,
-    "cur": 35,
+    "hero": "sinestrea",
+    "prev": 94,
+    "cur": 69,
     "delta": -25,
-    "team_prev": 12,
-    "team_cur": 8
+    "team_prev": 8,
+    "team_cur": 5
    },
    {
     "hero": "edras",
