@@ -4,8 +4,8 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-02T04:05:29+00:00",
-  "played": 54,
+  "updated_at": "2026-10-02T11:53:42+00:00",
+  "played": 55,
   "total": 72,
   "playoff_slots": 4
  },
@@ -23,6 +23,18 @@
    "max_points": 14
   },
   {
+   "team": "KOG",
+   "w": 9,
+   "l": 4,
+   "gw": 31,
+   "gl": 21,
+   "diff": 10,
+   "points": 9,
+   "remaining": 3,
+   "rank": 2,
+   "max_points": 12
+  },
+  {
    "team": "Buriram United",
    "w": 9,
    "l": 3,
@@ -31,7 +43,7 @@
    "diff": 9,
    "points": 9,
    "remaining": 4,
-   "rank": 2,
+   "rank": 3,
    "max_points": 13
   },
   {
@@ -41,18 +53,6 @@
    "gw": 29,
    "gl": 17,
    "diff": 12,
-   "points": 8,
-   "remaining": 4,
-   "rank": 3,
-   "max_points": 12
-  },
-  {
-   "team": "KOG",
-   "w": 8,
-   "l": 4,
-   "gw": 28,
-   "gl": 20,
-   "diff": 8,
    "points": 8,
    "remaining": 4,
    "rank": 4,
@@ -85,14 +85,14 @@
   {
    "team": "Bacon Time",
    "w": 4,
-   "l": 7,
-   "gw": 20,
-   "gl": 26,
-   "diff": -6,
+   "l": 8,
+   "gw": 21,
+   "gl": 29,
+   "diff": -8,
    "points": 4,
-   "remaining": 5,
+   "remaining": 4,
    "rank": 7,
-   "max_points": 9
+   "max_points": 8
   },
   {
    "team": "Godji Check",
@@ -120,15 +120,15 @@
   }
  ],
  "ratings": {
-  "FULL SENSE": 0.592,
+  "FULL SENSE": 0.594,
+  "KOG": 0.332,
   "Buriram United": 0.353,
-  "eArena": 0.394,
-  "KOG": 0.29,
-  "Tenacity": 0.429,
-  "SOLYX": -0.119,
-  "Bacon Time": -0.107,
-  "Godji Check": -0.741,
-  "Hydra": -1.09
+  "eArena": 0.391,
+  "Tenacity": 0.427,
+  "SOLYX": -0.121,
+  "Bacon Time": -0.149,
+  "Godji Check": -0.739,
+  "Hydra": -1.087
  },
  "diagnostics": {
   "series": [
@@ -208,35 +208,42 @@
     "flow": "LLWWL",
     "score": "2-3",
     "won": false
+   },
+   {
+    "opponent": "KOG",
+    "date": "October 2, 2026",
+    "flow": "WLLL",
+    "score": "1-3",
+    "won": false
    }
   ],
   "by_game_no": [
    {
     "game": 1,
-    "n": 11,
-    "w": 3,
-    "wr": 27,
+    "n": 12,
+    "w": 4,
+    "wr": 33,
     "league_wr": 50
    },
    {
     "game": 2,
-    "n": 11,
+    "n": 12,
     "w": 6,
-    "wr": 55,
+    "wr": 50,
     "league_wr": 50
    },
    {
     "game": 3,
-    "n": 11,
+    "n": 12,
     "w": 5,
-    "wr": 45,
+    "wr": 42,
     "league_wr": 50
    },
    {
     "game": 4,
-    "n": 8,
+    "n": 9,
     "w": 4,
-    "wr": 50,
+    "wr": 44,
     "league_wr": 50
    },
    {
@@ -285,9 +292,9 @@
     "league_wr": 54
    },
    "red": {
-    "n": 20,
-    "w": 9,
-    "wr": 45,
+    "n": 21,
+    "w": 10,
+    "wr": 48,
     "league_wr": 46
    }
   },
@@ -301,21 +308,21 @@
    "w": 2
   },
   "trailing": {
-   "n": 27,
+   "n": 29,
    "w": 13,
-   "wr": 48
+   "wr": 45
   },
   "leading": {
-   "n": 8,
+   "n": 9,
    "w": 4,
-   "wr": 50
+   "wr": 44
   },
   "tiers": {
    "top": {
     "mw": 1,
-    "ml": 7,
-    "gw": 11,
-    "gl": 23,
+    "ml": 8,
+    "gw": 12,
+    "gl": 26,
     "wr": 32
    },
    "bottom": {
@@ -336,6 +343,14 @@
  },
  "heroes": {
   "pool": [
+   {
+    "hero": "toro",
+    "n": 3,
+    "w": 3,
+    "wr": 100,
+    "league_wr": 55,
+    "edge": 45
+   },
    {
     "hero": "airi",
     "n": 5,
@@ -365,16 +380,16 @@
     "n": 10,
     "w": 6,
     "wr": 60,
-    "league_wr": 59,
-    "edge": 1
+    "league_wr": 58,
+    "edge": 2
    },
    {
     "hero": "lorion",
     "n": 10,
     "w": 6,
     "wr": 60,
-    "league_wr": 55,
-    "edge": 5
+    "league_wr": 54,
+    "edge": 6
    },
    {
     "hero": "sinestrea",
@@ -383,6 +398,14 @@
     "wr": 60,
     "league_wr": 62,
     "edge": -2
+   },
+   {
+    "hero": "annette",
+    "n": 7,
+    "w": 4,
+    "wr": 57,
+    "league_wr": 60,
+    "edge": -3
    },
    {
     "hero": "wiro",
@@ -401,6 +424,22 @@
     "edge": 10
    },
    {
+    "hero": "elandorr",
+    "n": 9,
+    "w": 5,
+    "wr": 56,
+    "league_wr": 50,
+    "edge": 6
+   },
+   {
+    "hero": "astrid",
+    "n": 9,
+    "w": 5,
+    "wr": 56,
+    "league_wr": 59,
+    "edge": -3
+   },
+   {
     "hero": "marja",
     "n": 10,
     "w": 5,
@@ -417,36 +456,12 @@
     "edge": -8
    },
    {
-    "hero": "elandorr",
-    "n": 8,
-    "w": 4,
-    "wr": 50,
-    "league_wr": 49,
-    "edge": 1
-   },
-   {
-    "hero": "astrid",
-    "n": 8,
-    "w": 4,
-    "wr": 50,
-    "league_wr": 58,
-    "edge": -8
-   },
-   {
     "hero": "ybneth",
     "n": 8,
     "w": 4,
     "wr": 50,
     "league_wr": 55,
     "edge": -5
-   },
-   {
-    "hero": "annette",
-    "n": 6,
-    "w": 3,
-    "wr": 50,
-    "league_wr": 60,
-    "edge": -10
    },
    {
     "hero": "rouie",
@@ -549,8 +564,8 @@
     "n": 3,
     "w": 1,
     "wr": 33,
-    "league_wr": 56,
-    "edge": -23
+    "league_wr": 55,
+    "edge": -22
    },
    {
     "hero": "nakroth",
@@ -575,6 +590,14 @@
     "wr": 25,
     "league_wr": 22,
     "edge": 3
+   },
+   {
+    "hero": "skud",
+    "n": 4,
+    "w": 1,
+    "wr": 25,
+    "league_wr": 51,
+    "edge": -26
    },
    {
     "hero": "thane",
@@ -623,96 +646,88 @@
     "wr": 0,
     "league_wr": 29,
     "edge": -29
-   },
-   {
-    "hero": "skud",
-    "n": 3,
-    "w": 0,
-    "wr": 0,
-    "league_wr": 50,
-    "edge": -50
    }
   ],
   "targeted": [
    {
     "hero": "tamyn",
     "n": 22,
-    "of": 46,
-    "rate": 48,
-    "league_rate": 33,
-    "gap": 15
+    "of": 50,
+    "rate": 44,
+    "league_rate": 32,
+    "gap": 12
    },
    {
     "hero": "annette",
     "n": 8,
-    "of": 46,
-    "rate": 17,
+    "of": 50,
+    "rate": 16,
     "league_rate": 9,
-    "gap": 8
+    "gap": 7
    },
    {
     "hero": "skud",
     "n": 5,
-    "of": 46,
-    "rate": 11,
+    "of": 50,
+    "rate": 10,
     "league_rate": 5,
-    "gap": 6
-   },
-   {
-    "hero": "elandorr",
-    "n": 8,
-    "of": 46,
-    "rate": 17,
-    "league_rate": 13,
-    "gap": 4
-   },
-   {
-    "hero": "enzo",
-    "n": 3,
-    "of": 46,
-    "rate": 7,
-    "league_rate": 4,
-    "gap": 3
-   },
-   {
-    "hero": "maloch",
-    "n": 6,
-    "of": 46,
-    "rate": 13,
-    "league_rate": 10,
-    "gap": 3
+    "gap": 5
    },
    {
     "hero": "alice",
     "n": 5,
-    "of": 46,
-    "rate": 11,
+    "of": 50,
+    "rate": 10,
     "league_rate": 7,
     "gap": 3
    },
    {
-    "hero": "omen",
-    "n": 6,
-    "of": 46,
-    "rate": 13,
-    "league_rate": 10,
+    "hero": "elandorr",
+    "n": 8,
+    "of": 50,
+    "rate": 16,
+    "league_rate": 13,
     "gap": 3
    },
    {
     "hero": "yue",
     "n": 3,
-    "of": 46,
-    "rate": 7,
+    "of": 50,
+    "rate": 6,
     "league_rate": 3,
     "gap": 3
    },
    {
-    "hero": "hayate",
+    "hero": "enzo",
     "n": 3,
-    "of": 46,
-    "rate": 7,
-    "league_rate": 5,
+    "of": 50,
+    "rate": 6,
+    "league_rate": 4,
     "gap": 2
+   },
+   {
+    "hero": "maloch",
+    "n": 6,
+    "of": 50,
+    "rate": 12,
+    "league_rate": 10,
+    "gap": 2
+   },
+   {
+    "hero": "omen",
+    "n": 6,
+    "of": 50,
+    "rate": 12,
+    "league_rate": 10,
+    "gap": 2
+   },
+   {
+    "hero": "mganga",
+    "n": 3,
+    "of": 50,
+    "rate": 6,
+    "league_rate": 5,
+    "gap": 1
    }
   ],
   "punished": [
@@ -796,15 +811,15 @@
     "hero": "biron",
     "league_n": 47,
     "league_wr": 60,
-    "presence": 22,
+    "presence": 21,
     "team_n": 4
    },
    {
     "hero": "annette",
-    "league_n": 52,
+    "league_n": 53,
     "league_wr": 60,
     "presence": 42,
-    "team_n": 6
+    "team_n": 7
    },
    {
     "hero": "qi",
@@ -814,32 +829,18 @@
     "team_n": 2
    },
    {
-    "hero": "violet",
-    "league_n": 51,
-    "league_wr": 59,
-    "presence": 27,
-    "team_n": 10
-   },
-   {
     "hero": "ryoma",
     "league_n": 48,
     "league_wr": 58,
-    "presence": 33,
+    "presence": 32,
     "team_n": 8
    },
    {
-    "hero": "zuka",
-    "league_n": 16,
-    "league_wr": 56,
-    "presence": 7,
-    "team_n": 1
-   },
-   {
-    "hero": "mina",
-    "league_n": 39,
-    "league_wr": 56,
-    "presence": 32,
-    "team_n": 3
+    "hero": "violet",
+    "league_n": 52,
+    "league_wr": 58,
+    "presence": 27,
+    "team_n": 10
    },
    {
     "hero": "elsu",
@@ -849,28 +850,42 @@
     "team_n": 1
    },
    {
+    "hero": "toro",
+    "league_n": 64,
+    "league_wr": 55,
+    "presence": 32,
+    "team_n": 3
+   },
+   {
+    "hero": "mina",
+    "league_n": 40,
+    "league_wr": 55,
+    "presence": 32,
+    "team_n": 3
+   },
+   {
     "hero": "tachi",
     "league_n": 55,
     "league_wr": 55,
-    "presence": 35,
+    "presence": 34,
     "team_n": 8
    },
    {
-    "hero": "lorion",
-    "league_n": 56,
-    "league_wr": 55,
-    "presence": 37,
-    "team_n": 10
+    "hero": "hayate",
+    "league_n": 46,
+    "league_wr": 54,
+    "presence": 30,
+    "team_n": 0
    }
   ],
   "team_bans": [
    {
-    "hero": "sinestrea",
+    "hero": "rouie",
     "n": 17
    },
    {
-    "hero": "rouie",
-    "n": 16
+    "hero": "sinestrea",
+    "n": 17
    },
    {
     "hero": "astrid",
@@ -897,11 +912,11 @@
     "n": 7
    },
    {
-    "hero": "annette",
+    "hero": "tamyn",
     "n": 6
    },
    {
-    "hero": "valhein",
+    "hero": "annette",
     "n": 6
    }
   ],
@@ -1093,8 +1108,8 @@
     "swing": -21
    }
   ],
-  "total_games": 215,
-  "team_games": 46
+  "total_games": 219,
+  "team_games": 50
  },
  "tempo": {
   "team": {
@@ -1104,9 +1119,9 @@
     "wr": 44
    },
    "even": {
-    "n": 18,
-    "w": 11,
-    "wr": 61
+    "n": 19,
+    "w": 12,
+    "wr": 63
    },
    "slower": {
     "n": 19,
@@ -1121,8 +1136,8 @@
     "wr": 57
    },
    "even": {
-    "n": 172,
-    "w": 86,
+    "n": 174,
+    "w": 87,
     "wr": 50
    },
    "slower": {
@@ -1555,6 +1570,14 @@
     "kind": "faster",
     "minutes": 18.5,
     "won": false
+   },
+   {
+    "opponent": "KOG",
+    "ours": 16.4,
+    "theirs": 16.2,
+    "kind": "even",
+    "minutes": null,
+    "won": true
    }
   ]
  },
@@ -1563,24 +1586,24 @@
    {
     "hero": "tamyn",
     "prev": 0,
-    "cur": 86,
-    "delta": 86,
+    "cur": 85,
+    "delta": 85,
     "team_prev": 0,
     "team_cur": 2
    },
    {
     "hero": "astrid",
     "prev": 0,
-    "cur": 77,
-    "delta": 77,
+    "cur": 76,
+    "delta": 76,
     "team_prev": 0,
-    "team_cur": 8
+    "team_cur": 9
    },
    {
     "hero": "alice",
     "prev": 0,
     "cur": 32,
-    "delta": 32,
+    "delta": 31,
     "team_prev": 0,
     "team_cur": 5
    },
@@ -1598,29 +1621,29 @@
     "cur": 42,
     "delta": 22,
     "team_prev": 4,
-    "team_cur": 6
+    "team_cur": 7
    },
    {
     "hero": "maloch",
     "prev": 18,
     "cur": 40,
-    "delta": 22,
+    "delta": 21,
     "team_prev": 2,
     "team_cur": 7
    },
    {
     "hero": "dolia",
     "prev": 53,
-    "cur": 74,
-    "delta": 21,
+    "cur": 73,
+    "delta": 20,
     "team_prev": 13,
     "team_cur": 2
    },
    {
     "hero": "cresht",
     "prev": 7,
-    "cur": 26,
-    "delta": 19,
+    "cur": 25,
+    "delta": 18,
     "team_prev": 2,
     "team_cur": 6
    },
@@ -1628,7 +1651,7 @@
     "hero": "ybneth",
     "prev": 44,
     "cur": 63,
-    "delta": 19,
+    "delta": 18,
     "team_prev": 13,
     "team_cur": 8
    },
@@ -1644,14 +1667,14 @@
     "hero": "wiro",
     "prev": 2,
     "cur": 20,
-    "delta": 18,
+    "delta": 17,
     "team_prev": 4,
     "team_cur": 7
    },
    {
     "hero": "ryoma",
     "prev": 19,
-    "cur": 33,
+    "cur": 32,
     "delta": 13,
     "team_prev": 4,
     "team_cur": 8
@@ -1672,13 +1695,13 @@
     "cur": 32,
     "delta": -31,
     "team_prev": 12,
-    "team_cur": 2
+    "team_cur": 3
    },
    {
     "hero": "murad",
     "prev": 51,
     "cur": 21,
-    "delta": -29,
+    "delta": -30,
     "team_prev": 6,
     "team_cur": 3
    },
@@ -1686,7 +1709,7 @@
     "hero": "zata",
     "prev": 70,
     "cur": 41,
-    "delta": -28,
+    "delta": -29,
     "team_prev": 4,
     "team_cur": 3
    },
@@ -1694,14 +1717,14 @@
     "hero": "keera",
     "prev": 36,
     "cur": 8,
-    "delta": -28,
+    "delta": -29,
     "team_prev": 8,
     "team_cur": 0
    },
    {
     "hero": "hayate",
     "prev": 57,
-    "cur": 31,
+    "cur": 30,
     "delta": -26,
     "team_prev": 8,
     "team_cur": 0
@@ -1709,8 +1732,8 @@
    {
     "hero": "tachi",
     "prev": 60,
-    "cur": 35,
-    "delta": -25,
+    "cur": 34,
+    "delta": -26,
     "team_prev": 12,
     "team_cur": 8
    },
@@ -1725,8 +1748,8 @@
    {
     "hero": "sinestrea",
     "prev": 94,
-    "cur": 69,
-    "delta": -24,
+    "cur": 68,
+    "delta": -25,
     "team_prev": 8,
     "team_cur": 5
    },
@@ -1740,10 +1763,10 @@
    }
   ],
   "adaptation": {
-   "team_n": 74,
-   "team_wr": 45,
-   "league_n": 517,
-   "league_wr": 55
+   "team_n": 76,
+   "team_wr": 46,
+   "league_n": 519,
+   "league_wr": 54
   },
   "lost_tools": [
    {
@@ -1754,7 +1777,7 @@
    {
     "hero": "toro",
     "prev": 12,
-    "cur": 2
+    "cur": 3
    },
    {
     "hero": "natalya",
@@ -1777,11 +1800,6 @@
     "cur": 4
    },
    {
-    "hero": "skud",
-    "prev": 9,
-    "cur": 3
-   },
-   {
     "hero": "enzo",
     "prev": 7,
     "cur": 1
@@ -1795,21 +1813,25 @@
     "hero": "yue",
     "prev": 9,
     "cur": 3
+   },
+   {
+    "hero": "skud",
+    "prev": 9,
+    "cur": 4
    }
   ],
   "prev_label": "Summer 2026",
   "cur_label": "Winter 2026"
  },
  "odds": {
-  "top4": 0.03,
-  "win_out": 2.25,
-  "top4_if_win_out": 1.2,
+  "top4": 0.0,
+  "win_out": 6.33,
+  "top4_if_win_out": 0.0,
   "placement": {
-   "4": 0.0,
-   "5": 1.1,
-   "6": 53.4,
-   "7": 45.3,
-   "8": 0.2
+   "5": 0.0,
+   "6": 44.9,
+   "7": 54.7,
+   "8": 0.4
   },
   "finish_above": [
    {
@@ -1818,30 +1840,30 @@
    },
    {
     "team": "Godji Check",
-    "pct": 99.8
+    "pct": 99.6
    },
    {
     "team": "SOLYX",
-    "pct": 54.4
-   },
-   {
-    "team": "KOG",
-    "pct": 1.0
-   },
-   {
-    "team": "eArena",
-    "pct": 0.1
-   },
-   {
-    "team": "Tenacity",
-    "pct": 0.1
+    "pct": 44.9
    },
    {
     "team": "FULL SENSE",
     "pct": 0.0
    },
    {
+    "team": "KOG",
+    "pct": 0.0
+   },
+   {
     "team": "Buriram United",
+    "pct": 0.0
+   },
+   {
+    "team": "eArena",
+    "pct": 0.0
+   },
+   {
+    "team": "Tenacity",
     "pct": 0.0
    }
   ],
@@ -1850,105 +1872,99 @@
   "rival": "SOLYX",
   "swing": [
    {
-    "match": "eArena vs SOLYX",
-    "a": "eArena",
-    "b": "SOLYX",
-    "root_for": "eArena",
-    "if_a": 61.3,
-    "if_b": 35.7,
-    "gap": 25.6
+    "match": "SOLYX vs Hydra",
+    "a": "SOLYX",
+    "b": "Hydra",
+    "root_for": "Hydra",
+    "if_a": 42.0,
+    "if_b": 67.1,
+    "gap": 25.1
    },
    {
     "match": "SOLYX vs KOG",
     "a": "SOLYX",
     "b": "KOG",
     "root_for": "KOG",
-    "if_a": 37.5,
-    "if_b": 62.7,
-    "gap": 25.2
+    "if_a": 27.9,
+    "if_b": 52.0,
+    "gap": 24.1
    },
    {
     "match": "SOLYX vs FULL SENSE",
     "a": "SOLYX",
     "b": "FULL SENSE",
     "root_for": "FULL SENSE",
-    "if_a": 34.9,
-    "if_b": 58.6,
-    "gap": 23.7
+    "if_a": 25.7,
+    "if_b": 49.5,
+    "gap": 23.8
    },
    {
-    "match": "SOLYX vs Hydra",
-    "a": "SOLYX",
-    "b": "Hydra",
-    "root_for": "Hydra",
-    "if_a": 52.0,
-    "if_b": 74.8,
-    "gap": 22.9
+    "match": "eArena vs SOLYX",
+    "a": "eArena",
+    "b": "SOLYX",
+    "root_for": "eArena",
+    "if_a": 50.4,
+    "if_b": 28.0,
+    "gap": 22.4
    },
    {
-    "match": "Hydra vs Buriram United",
-    "a": "Hydra",
-    "b": "Buriram United",
-    "root_for": "Hydra",
-    "if_a": 55.8,
-    "if_b": 53.8,
-    "gap": 2.0
-   },
-   {
-    "match": "Tenacity vs KOG",
-    "a": "Tenacity",
-    "b": "KOG",
-    "root_for": "Tenacity",
-    "if_a": 55.2,
-    "if_b": 53.7,
-    "gap": 1.5
-   },
-   {
-    "match": "Buriram United vs Godji Check",
+    "match": "Buriram United vs eArena",
     "a": "Buriram United",
-    "b": "Godji Check",
-    "root_for": "Godji Check",
-    "if_a": 54.7,
-    "if_b": 55.7,
-    "gap": 1.0
+    "b": "eArena",
+    "root_for": "Buriram United",
+    "if_a": 44.6,
+    "if_b": 43.2,
+    "gap": 1.4
    },
    {
-    "match": "KOG vs eArena",
-    "a": "KOG",
-    "b": "eArena",
-    "root_for": "KOG",
-    "if_a": 55.0,
-    "if_b": 54.1,
-    "gap": 1.0
+    "match": "Tenacity vs Buriram United",
+    "a": "Tenacity",
+    "b": "Buriram United",
+    "root_for": "Buriram United",
+    "if_a": 44.0,
+    "if_b": 44.7,
+    "gap": 0.7
    },
    {
     "match": "Godji Check vs Tenacity",
     "a": "Godji Check",
     "b": "Tenacity",
     "root_for": "Tenacity",
-    "if_a": 54.5,
-    "if_b": 55.3,
-    "gap": 0.8
+    "if_a": 45.0,
+    "if_b": 45.3,
+    "gap": 0.3
    },
    {
-    "match": "FULL SENSE vs eArena",
-    "a": "FULL SENSE",
+    "match": "Tenacity vs KOG",
+    "a": "Tenacity",
+    "b": "KOG",
+    "root_for": "KOG",
+    "if_a": 44.6,
+    "if_b": 44.8,
+    "gap": 0.2
+   },
+   {
+    "match": "Buriram United vs Godji Check",
+    "a": "Buriram United",
+    "b": "Godji Check",
+    "root_for": "Buriram United",
+    "if_a": 45.9,
+    "if_b": 45.8,
+    "gap": 0.2
+   },
+   {
+    "match": "KOG vs eArena",
+    "a": "KOG",
     "b": "eArena",
-    "root_for": "FULL SENSE",
-    "if_a": 54.7,
-    "if_b": 54.1,
-    "gap": 0.7
+    "root_for": "KOG",
+    "if_a": 45.4,
+    "if_b": 45.2,
+    "gap": 0.2
    }
   ],
   "sims": 40000
  },
  "schedule": [
-  {
-   "date": "October 2, 2026 - 16:00 ICT",
-   "a": "KOG",
-   "b": "Bacon Time",
-   "involves_team": true
-  },
   {
    "date": "October 2, 2026 - 19:00 ICT",
    "a": "Buriram United",
@@ -2053,55 +2069,6 @@
   }
  ],
  "prep": [
-  {
-   "opponent": "KOG",
-   "date": "October 2, 2026 - 16:00 ICT",
-   "threats": [
-    {
-     "hero": "taara",
-     "n": 5,
-     "w": 5,
-     "wr": 100
-    },
-    {
-     "hero": "tamyn",
-     "n": 5,
-     "w": 5,
-     "wr": 100
-    },
-    {
-     "hero": "cresht",
-     "n": 4,
-     "w": 4,
-     "wr": 100
-    },
-    {
-     "hero": "liliana",
-     "n": 8,
-     "w": 7,
-     "wr": 88
-    },
-    {
-     "hero": "biron",
-     "n": 6,
-     "w": 5,
-     "wr": 83
-    },
-    {
-     "hero": "violet",
-     "n": 10,
-     "w": 8,
-     "wr": 80
-    }
-   ],
-   "head_to_head": [
-    {
-     "date": "September 13, 2026",
-     "score": "3-2",
-     "won": true
-    }
-   ]
-  },
   {
    "opponent": "SOLYX",
    "date": "October 4, 2026 - 15:00 ICT",
@@ -2320,12 +2287,6 @@
  "recent": [
   {
    "date": "September 24, 2026",
-   "a": "Godji Check",
-   "b": "KOG",
-   "score": "0-3"
-  },
-  {
-   "date": "September 24, 2026",
    "a": "eArena",
    "b": "Hydra",
    "score": "3-0"
@@ -2389,6 +2350,12 @@
    "a": "Godji Check",
    "b": "FULL SENSE",
    "score": "2-3"
+  },
+  {
+   "date": "October 2, 2026",
+   "a": "KOG",
+   "b": "Bacon Time",
+   "score": "3-1"
   }
  ]
 }
