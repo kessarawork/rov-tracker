@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-03T15:43:30+00:00",
+  "updated_at": "2026-10-03T20:35:44+00:00",
   "played": 59,
   "total": 72,
   "playoff_slots": 4
@@ -1666,20 +1666,20 @@
     "team_cur": 7
    },
    {
-    "hero": "maloch",
-    "prev": 18,
-    "cur": 40,
-    "delta": 21,
-    "team_prev": 2,
-    "team_cur": 7
-   },
-   {
     "hero": "dolia",
     "prev": 53,
     "cur": 73,
     "delta": 21,
     "team_prev": 13,
     "team_cur": 3
+   },
+   {
+    "hero": "maloch",
+    "prev": 18,
+    "cur": 40,
+    "delta": 21,
+    "team_prev": 2,
+    "team_cur": 7
    },
    {
     "hero": "ybneth",
