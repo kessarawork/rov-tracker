@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-04T20:52:17+00:00",
+  "updated_at": "2026-10-05T04:05:22+00:00",
   "played": 62,
   "total": 72,
   "playoff_slots": 4
@@ -1681,14 +1681,6 @@
     "team_cur": 10
    },
    {
-    "hero": "alice",
-    "prev": 0,
-    "cur": 32,
-    "delta": 31,
-    "team_prev": 0,
-    "team_cur": 5
-   },
-   {
     "hero": "flowborn",
     "prev": 0,
     "cur": 31,
@@ -1697,12 +1689,12 @@
     "team_cur": 6
    },
    {
-    "hero": "maloch",
-    "prev": 18,
-    "cur": 40,
-    "delta": 22,
-    "team_prev": 2,
-    "team_cur": 7
+    "hero": "alice",
+    "prev": 0,
+    "cur": 32,
+    "delta": 31,
+    "team_prev": 0,
+    "team_cur": 5
    },
    {
     "hero": "annette",
@@ -1711,6 +1703,14 @@
     "delta": 22,
     "team_prev": 4,
     "team_cur": 8
+   },
+   {
+    "hero": "maloch",
+    "prev": 18,
+    "cur": 40,
+    "delta": 22,
+    "team_prev": 2,
+    "team_cur": 7
    },
    {
     "hero": "dolia",
@@ -1753,29 +1753,29 @@
     "team_cur": 6
    },
    {
-    "hero": "mina",
-    "prev": 21,
-    "cur": 33,
+    "hero": "ryoma",
+    "prev": 19,
+    "cur": 32,
     "delta": 13,
     "team_prev": 4,
-    "team_cur": 3
+    "team_cur": 9
    }
   ],
   "fallers": [
-   {
-    "hero": "qi",
-    "prev": 49,
-    "cur": 17,
-    "delta": -32,
-    "team_prev": 3,
-    "team_cur": 3
-   },
    {
     "hero": "murad",
     "prev": 51,
     "cur": 19,
     "delta": -32,
     "team_prev": 6,
+    "team_cur": 3
+   },
+   {
+    "hero": "qi",
+    "prev": 49,
+    "cur": 17,
+    "delta": -32,
+    "team_prev": 3,
     "team_cur": 3
    },
    {
@@ -1787,20 +1787,20 @@
     "team_cur": 3
    },
    {
-    "hero": "keera",
-    "prev": 36,
-    "cur": 7,
-    "delta": -30,
-    "team_prev": 8,
-    "team_cur": 0
-   },
-   {
     "hero": "zata",
     "prev": 70,
     "cur": 40,
     "delta": -30,
     "team_prev": 4,
     "team_cur": 3
+   },
+   {
+    "hero": "keera",
+    "prev": 36,
+    "cur": 7,
+    "delta": -30,
+    "team_prev": 8,
+    "team_cur": 0
    },
    {
     "hero": "tachi",
@@ -1844,10 +1844,10 @@
    }
   ],
   "adaptation": {
-   "team_n": 81,
+   "team_n": 87,
    "team_wr": 40,
-   "league_n": 594,
-   "league_wr": 54
+   "league_n": 599,
+   "league_wr": 55
   },
   "lost_tools": [
    {
