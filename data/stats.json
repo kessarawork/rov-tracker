@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-07T22:42:50+00:00",
+  "updated_at": "2026-10-08T04:32:33+00:00",
   "played": 62,
   "total": 72,
   "playoff_slots": 4
@@ -1681,20 +1681,20 @@
     "team_cur": 10
    },
    {
-    "hero": "flowborn",
-    "prev": 0,
-    "cur": 31,
-    "delta": 31,
-    "team_prev": 0,
-    "team_cur": 6
-   },
-   {
     "hero": "alice",
     "prev": 0,
     "cur": 32,
     "delta": 31,
     "team_prev": 0,
     "team_cur": 5
+   },
+   {
+    "hero": "flowborn",
+    "prev": 0,
+    "cur": 31,
+    "delta": 31,
+    "team_prev": 0,
+    "team_cur": 6
    },
    {
     "hero": "annette",
@@ -1721,20 +1721,20 @@
     "team_cur": 3
    },
    {
-    "hero": "ybneth",
-    "prev": 44,
-    "cur": 64,
-    "delta": 20,
-    "team_prev": 13,
-    "team_cur": 9
-   },
-   {
     "hero": "wiro",
     "prev": 2,
     "cur": 22,
     "delta": 20,
     "team_prev": 4,
     "team_cur": 8
+   },
+   {
+    "hero": "ybneth",
+    "prev": 44,
+    "cur": 64,
+    "delta": 20,
+    "team_prev": 13,
+    "team_cur": 9
    },
    {
     "hero": "violet",
@@ -1763,19 +1763,19 @@
   ],
   "fallers": [
    {
-    "hero": "murad",
-    "prev": 51,
-    "cur": 19,
-    "delta": -32,
-    "team_prev": 6,
-    "team_cur": 3
-   },
-   {
     "hero": "qi",
     "prev": 49,
     "cur": 17,
     "delta": -32,
     "team_prev": 3,
+    "team_cur": 3
+   },
+   {
+    "hero": "murad",
+    "prev": 51,
+    "cur": 19,
+    "delta": -32,
+    "team_prev": 6,
     "team_cur": 3
    },
    {
@@ -1787,20 +1787,20 @@
     "team_cur": 4
    },
    {
-    "hero": "keera",
-    "prev": 36,
-    "cur": 7,
-    "delta": -30,
-    "team_prev": 8,
-    "team_cur": 0
-   },
-   {
     "hero": "zata",
     "prev": 70,
     "cur": 40,
     "delta": -30,
     "team_prev": 4,
     "team_cur": 3
+   },
+   {
+    "hero": "keera",
+    "prev": 36,
+    "cur": 7,
+    "delta": -30,
+    "team_prev": 8,
+    "team_cur": 0
    },
    {
     "hero": "tachi",
