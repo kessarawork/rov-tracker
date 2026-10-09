@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-08T22:54:07+00:00",
+  "updated_at": "2026-10-09T04:36:05+00:00",
   "played": 64,
   "total": 72,
   "playoff_slots": 4
@@ -1736,12 +1736,12 @@
     "team_cur": 5
    },
    {
-    "hero": "annette",
-    "prev": 20,
-    "cur": 42,
+    "hero": "dolia",
+    "prev": 53,
+    "cur": 74,
     "delta": 22,
-    "team_prev": 4,
-    "team_cur": 9
+    "team_prev": 13,
+    "team_cur": 4
    },
    {
     "hero": "maloch",
@@ -1752,20 +1752,12 @@
     "team_cur": 7
    },
    {
-    "hero": "dolia",
-    "prev": 53,
-    "cur": 74,
+    "hero": "annette",
+    "prev": 20,
+    "cur": 42,
     "delta": 22,
-    "team_prev": 13,
-    "team_cur": 4
-   },
-   {
-    "hero": "ybneth",
-    "prev": 44,
-    "cur": 64,
-    "delta": 20,
-    "team_prev": 13,
-    "team_cur": 10
+    "team_prev": 4,
+    "team_cur": 9
    },
    {
     "hero": "wiro",
@@ -1774,6 +1766,14 @@
     "delta": 20,
     "team_prev": 4,
     "team_cur": 9
+   },
+   {
+    "hero": "ybneth",
+    "prev": 44,
+    "cur": 64,
+    "delta": 20,
+    "team_prev": 13,
+    "team_cur": 10
    },
    {
     "hero": "violet",
@@ -1866,20 +1866,20 @@
     "team_cur": 1
    },
    {
-    "hero": "edras",
-    "prev": 47,
-    "cur": 25,
-    "delta": -22,
-    "team_prev": 5,
-    "team_cur": 0
-   },
-   {
     "hero": "sinestrea",
     "prev": 94,
     "cur": 72,
     "delta": -22,
     "team_prev": 8,
     "team_cur": 6
+   },
+   {
+    "hero": "edras",
+    "prev": 47,
+    "cur": 25,
+    "delta": -22,
+    "team_prev": 5,
+    "team_cur": 0
    }
   ],
   "adaptation": {
