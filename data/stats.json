@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-10T17:00:19+00:00",
+  "updated_at": "2026-10-10T21:10:03+00:00",
   "played": 69,
   "total": 72,
   "playoff_slots": 4
@@ -1866,14 +1866,6 @@
     "team_cur": 6
    },
    {
-    "hero": "zata",
-    "prev": 70,
-    "cur": 39,
-    "delta": -31,
-    "team_prev": 4,
-    "team_cur": 3
-   },
-   {
     "hero": "qi",
     "prev": 49,
     "cur": 18,
@@ -1882,12 +1874,12 @@
     "team_cur": 4
    },
    {
-    "hero": "keera",
-    "prev": 36,
-    "cur": 7,
-    "delta": -29,
-    "team_prev": 8,
-    "team_cur": 0
+    "hero": "zata",
+    "prev": 70,
+    "cur": 39,
+    "delta": -31,
+    "team_prev": 4,
+    "team_cur": 3
    },
    {
     "hero": "tachi",
@@ -1896,6 +1888,14 @@
     "delta": -29,
     "team_prev": 12,
     "team_cur": 10
+   },
+   {
+    "hero": "keera",
+    "prev": 36,
+    "cur": 7,
+    "delta": -29,
+    "team_prev": 8,
+    "team_cur": 0
    },
    {
     "hero": "fennik",
