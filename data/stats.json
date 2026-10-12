@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-12T04:21:59+00:00",
+  "updated_at": "2026-10-12T14:26:46+00:00",
   "played": 72,
   "total": 72,
   "playoff_slots": 4
@@ -1963,20 +1963,20 @@
     "team_cur": 2
    },
    {
-    "hero": "sinestrea",
-    "prev": 94,
-    "cur": 73,
-    "delta": -21,
-    "team_prev": 8,
-    "team_cur": 8
-   },
-   {
     "hero": "zephys",
     "prev": 32,
     "cur": 12,
     "delta": -21,
     "team_prev": 4,
     "team_cur": 4
+   },
+   {
+    "hero": "sinestrea",
+    "prev": 94,
+    "cur": 73,
+    "delta": -21,
+    "team_prev": 8,
+    "team_cur": 8
    }
   ],
   "adaptation": {
