@@ -4,7 +4,7 @@
   "tournament": "Winter 2026",
   "source": "Liquipedia (CC-BY-SA)",
   "source_url": "https://liquipedia.net/honorofkings/RoV_Pro_League/2026/Winter/Group_Stage",
-  "updated_at": "2026-10-26T03:14:57+00:00",
+  "updated_at": "2026-10-26T12:15:58+00:00",
   "played": 72,
   "total": 72,
   "playoff_slots": 4
@@ -1849,20 +1849,20 @@
     "team_cur": 4
    },
    {
-    "hero": "wiro",
-    "prev": 2,
-    "cur": 24,
-    "delta": 21,
-    "team_prev": 4,
-    "team_cur": 10
-   },
-   {
     "hero": "ybneth",
     "prev": 44,
     "cur": 66,
     "delta": 21,
     "team_prev": 13,
     "team_cur": 12
+   },
+   {
+    "hero": "wiro",
+    "prev": 2,
+    "cur": 24,
+    "delta": 21,
+    "team_prev": 4,
+    "team_cur": 10
    },
    {
     "hero": "annette",
@@ -1881,30 +1881,30 @@
     "team_cur": 15
    },
    {
-    "hero": "cresht",
-    "prev": 7,
-    "cur": 22,
-    "delta": 15,
-    "team_prev": 2,
-    "team_cur": 6
-   },
-   {
     "hero": "mina",
     "prev": 21,
     "cur": 35,
     "delta": 15,
     "team_prev": 4,
     "team_cur": 3
+   },
+   {
+    "hero": "cresht",
+    "prev": 7,
+    "cur": 22,
+    "delta": 15,
+    "team_prev": 2,
+    "team_cur": 6
    }
   ],
   "fallers": [
    {
-    "hero": "qi",
-    "prev": 49,
-    "cur": 17,
+    "hero": "toro",
+    "prev": 63,
+    "cur": 32,
     "delta": -32,
-    "team_prev": 3,
-    "team_cur": 4
+    "team_prev": 12,
+    "team_cur": 7
    },
    {
     "hero": "zata",
@@ -1915,12 +1915,12 @@
     "team_cur": 3
    },
    {
-    "hero": "toro",
-    "prev": 63,
-    "cur": 32,
+    "hero": "qi",
+    "prev": 49,
+    "cur": 17,
     "delta": -32,
-    "team_prev": 12,
-    "team_cur": 7
+    "team_prev": 3,
+    "team_cur": 4
    },
    {
     "hero": "murad",
